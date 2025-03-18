@@ -2,3 +2,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .btn-delete {
+     @apply bg-red-900 hover:bg-red-950 text-white font-bold py-2 px-4 rounded cursor-pointer
+    }
+    .btn-editar {
+     @apply bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded cursor-pointer
+    }
+    .btn-adicionar {
+        @apply bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer
+    }
+    .btn-cadastrar {
+        @apply bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 cursor-pointer
+    }
+    .btn-detalhe{
+        @apply px-2 py-1 text-white border border-gray-200 font-semibold rounded hover:bg-gray-800 cursor-pointer
+    }
+}

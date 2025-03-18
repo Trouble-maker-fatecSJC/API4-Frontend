@@ -88,10 +88,10 @@ export default function CadastroEstacao() {
               onChange={(e) => handleServicoChange(index, e)}
             >
               <option value="">Selecione um serviço</option>
-              <option value="haircut">Corte de cabelo</option>
-              <option value="coloring">Coloração</option>
-              <option value="styling">Penteado</option>
-              <option value="facial">Facial</option>
+              <option value="vento">Vento</option>
+              <option value="umidade">umidade</option>
+              <option value="temeratura">temperatura</option>
+              <option value="pressao">Pressao</option>
             </select>
           </div>
         ))}
@@ -100,7 +100,7 @@ export default function CadastroEstacao() {
         <button
           type="button"
           onClick={adicionarServico}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="btn-adicionar"
         >
           Adicionar Outro Parametro
         </button>
@@ -108,7 +108,7 @@ export default function CadastroEstacao() {
         {/* Botão para enviar o formulário */}
         <div className="flex items-center justify-center mt-6">
           <button
-            className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+            className="btn-cadastrar"
             type="submit"
           >
             Cadastrar
