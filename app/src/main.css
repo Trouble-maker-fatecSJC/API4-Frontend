@@ -20,4 +20,7 @@
     .btn-detalhe{
         @apply px-2 py-1 text-white border border-gray-200 font-semibold rounded hover:bg-gray-800 cursor-pointer
     }
+    .btn-close{
+        @apply rounded-lg text-white transition-all hover:bg-gray-700 bg-transparent
+    }
 }
