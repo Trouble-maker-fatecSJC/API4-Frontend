@@ -245,17 +245,19 @@
 import { useState, useEffect } from 'react';
 import DetalheEstacao from './DetalheEstacao'; // Importando o componente de detalhes
 import Header from '../header/Header';
+import Estacao from '../../model/Estacao';
+import Aside from '../aside/Aside';
 
 export default function Estacoes() {
-  interface Estacao {
-    ID_Estacao: number;
-    Nome: string;
-    Latitude: number;
-    Longitude: number;
-    Data_Instalacao: string;
-    Tipo_Estacao: string;
-    Indicativo_Ativa: boolean;
-  }
+  // interface Estacao {
+  //   id: number;
+  //   Nome: string;
+  //   Latitude: number;
+  //   Longitude: number;
+  //   // Data_Instalacao: string;
+  //   // Tipo_Estacao: string;
+  //   // Indicativo_Ativa: boolean;
+  // }
 
   const [estacoes, setEstacoes] = useState<Estacao[]>([]);
   const [estacaoSelecionada, setEstacaoSelecionada] = useState<Estacao | null>(null);
@@ -264,7 +266,7 @@ export default function Estacoes() {
     // Função para buscar as estações da API
     const fetchEstacoes = async () => {
       try {
-        const response = await fetch('http://localhost:8800/estacao'); // URL para buscar as estações
+        const response = await fetch('http://localhost:3000/api/estacoes'); // URL para buscar as estações
         if (response.ok) {
           const data = await response.json();
           setEstacoes(data);
@@ -292,12 +294,12 @@ export default function Estacoes() {
   // Função para deletar uma estação
   const deletarEstacao = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:8800/estacao/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/estacoes${id}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        setEstacoes(estacoes.filter((estacao) => estacao.ID_Estacao !== id));
+        setEstacoes(estacoes.filter((estacao) => estacao.id !== id));
         alert('Estação deletada com sucesso');
       } else {
         alert('Erro ao deletar a estação');
@@ -310,16 +312,16 @@ export default function Estacoes() {
 
   return (
     <>
-    <Header />
+    <Aside />
     <div className="flex sm:flex-row gap-4 bg-gray-800 items-center flex-col">
       {estacoes.map((estacao) => (
-        <div key={estacao.ID_Estacao} className="relative bg-gray-900 block p-6 border border-gray-100 rounded-lg w-[300px] mt-4">
+        <div key={estacao.id} className="relative bg-gray-900 block p-6 border border-gray-100 rounded-lg w-[300px] mt-4">
           <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-green-500 to-green-600"></span>
 
           <div className="my-4">
-            <h2 className="text-white text-2xl font-bold pb-2">{estacao.Nome}</h2>
-            <p className="text-gray-300 py-1">Latitude: {estacao.Latitude}</p>
-            <p className="text-gray-300 py-1">Longitude: {estacao.Longitude}</p>
+            <h2 className="text-white text-2xl font-bold pb-2">{estacao.nome}</h2>
+            <p className="text-gray-300 py-1">Latitude: {estacao.latitude}</p>
+            <p className="text-gray-300 py-1">Longitude: {estacao.longitude}</p>
           </div>
 
           <div className="flex justify-end">

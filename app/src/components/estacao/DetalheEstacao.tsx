@@ -134,22 +134,15 @@
 // }
 
 import { useState } from 'react';
-import EditarEstacao from './EditarEstacao'; // Ajuste o caminho conforme necessário
+import EditarEstacao from './EditarEstacao'; 
+import Estacao from '../../model/Estacao';
 
-interface Estacao {
-  ID_Estacao: number;
-  Nome: string;
-  Latitude: number;
-  Longitude: number;
-  Data_Instalacao: string;
-  Tipo_Estacao: string;
-  Indicativo_Ativa: boolean;
-}
 
 interface DetalheEstacaoProps {
   estacao: Estacao;
   onClose: () => void; // Função de fechamento
-  onDeleteEstacao: (id: number) => void; // Função para deletar a estação
+  onDeleteEstacao: (id: number) => void; 
+  onEditEstacao: (id: number) => void;
 }
 
 export default function DetalheEstacao({ estacao, onClose, onDeleteEstacao }: DetalheEstacaoProps) {
@@ -165,11 +158,12 @@ export default function DetalheEstacao({ estacao, onClose, onDeleteEstacao }: De
   };
 
   const handleDeleteEstacao = () => {
-    onDeleteEstacao(estacao.ID_Estacao);
+    onDeleteEstacao(estacao.id);
     setDeleteModalOpen(false);
   };
 
   const handleEditClick = () => {
+    onEditEstacao(estacao.id);
     setIsEditing(true);
   };
 
@@ -178,8 +172,9 @@ export default function DetalheEstacao({ estacao, onClose, onDeleteEstacao }: De
   };
 
   return (
-    <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 items-center justify-center flex-col max-w-md mx-5 md:mx-auto mt-10 bg-white rounded-lg overflow-hidden shadow-2xl">
-      <div className="relative text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
+    <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 
+    items-center justify-center flex-col max-w-md mx-5 md:mx-auto mt-16 bg-white rounded-lg overflow-hidden shadow-2xl ">
+      <div className="relative text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase ">
         <button onClick={onClose} className="absolute top-0 right-1 btn-close p-1">
           {/* Ícone de fechar */}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6">
@@ -193,28 +188,35 @@ export default function DetalheEstacao({ estacao, onClose, onDeleteEstacao }: De
         {/* Informações da Estação */}
         <div className="mb-4">
           <h2 className="text-gray-700 font-bold mb-2">Nome:</h2>
-          <p>{estacao.Nome}</p>
+          <p>{estacao.nome}</p>
+        </div>
+        <div className="mb-4">
+          <h2 className="text-gray-700 font-bold mb-2">Endereço:</h2>
+          <p>{estacao.endereco}</p>
         </div>
         <div className="mb-4">
           <h2 className="text-gray-700 font-bold mb-2">Latitude:</h2>
-          <p>{estacao.Latitude}</p>
+          <p>{estacao.latitude}</p>
         </div>
         <div className="mb-4">
           <h2 className="text-gray-700 font-bold mb-2">Longitude:</h2>
-          <p>{estacao.Longitude}</p>
+          <p>{estacao.longitude}</p>
         </div>
         <div className="mb-4">
           <h2 className="text-gray-700 font-bold mb-2">Data de Instalação:</h2>
-          <p>{new Date(estacao.Data_Instalacao).toLocaleDateString()}</p>
+          <p>{new Date(estacao.data_instalacao).toLocaleDateString()}</p>
         </div>
+        <div className="mb-4">
+          <h2 className="text-gray-700 font-bold mb-2">Indicativo Ativa:</h2>
+          <p>{estacao.status ? 'Ativa' : 'Inativa'}</p>
+        </div>
+
+        {/* 
         <div className="mb-4">
           <h2 className="text-gray-700 font-bold mb-2">Tipo de Estação:</h2>
           <p>{estacao.Tipo_Estacao}</p>
         </div>
-        <div className="mb-4">
-          <h2 className="text-gray-700 font-bold mb-2">Indicativo Ativa:</h2>
-          <p>{estacao.Indicativo_Ativa ? 'Ativa' : 'Inativa'}</p>
-        </div>
+         */}
 
         <div className="mb-4 flex justify-center gap-4">
           <button className="btn-editar" onClick={handleEditClick}>
@@ -266,7 +268,7 @@ export default function DetalheEstacao({ estacao, onClose, onDeleteEstacao }: De
 
       {/* Componente de Edição */}
       {isEditing && (
-        <EditarEstacao estacaoId={estacao.ID_Estacao} onClose={handleCloseEdit} />
+        <EditarEstacao estacaoId={estacao.id} onClose={handleCloseEdit} />
       )}
     </div>
   );
