@@ -6,7 +6,8 @@ import AdmHome from "../pages/adm";
 import Estacoes from "../components/estacao/Estacoes";
 import CadastroEstacao from "../components/estacao/CadastroEstacao";
 import CadastroUsuario from "../components/usuario/CadastroUsuario";
-// import EditarEstacao from "../components/estacao/EditarEstacao";
+import Usuarios from "../components/usuario/Usuarios";
+import EditarUsuario from "../components/usuario/EditarUsuario";
 
 export default function AppRoutes(){
     return (
@@ -17,9 +18,12 @@ export default function AppRoutes(){
         <Route path="/estacoes" element={<Estacoes />} />
         <Route path="/cadastroestacao" element={<CadastroEstacao />} />
         <Route path="/cadastrousuario" element={<CadastroUsuario />} />
+        <Route path='/usuarios' element={<Usuarios />} />
+        <Route path="/editarusuario/:cpfEdicao" element={<EditarUsuario />} />
+
         
 
-        <Route path="*" element={<PaginaNaoEncontrada />} /> 
+        <Route path="*" element={<PaginaNaoEncontrada />} />
         {/* Rota para página 404 */}
       </Routes>
     );
