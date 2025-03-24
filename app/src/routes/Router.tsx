@@ -5,6 +5,7 @@ import PaginaNaoEncontrada from "../pages/paginaNaoEncontrada";
 import AdmHome from "../pages/adm";
 import Estacoes from "../components/estacao/Estacoes";
 import CadastroEstacao from "../components/estacao/CadastroEstacao";
+import CadastroUsuario from "../components/usuario/CadastroUsuario";
 // import EditarEstacao from "../components/estacao/EditarEstacao";
 
 export default function AppRoutes(){
@@ -15,6 +16,7 @@ export default function AppRoutes(){
         <Route path="/adm" element={<AdmHome />} />
         <Route path="/estacoes" element={<Estacoes />} />
         <Route path="/cadastroestacao" element={<CadastroEstacao />} />
+        <Route path="/cadastrousuario" element={<CadastroUsuario />} />
         
 
         <Route path="*" element={<PaginaNaoEncontrada />} /> 
