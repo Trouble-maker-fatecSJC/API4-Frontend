@@ -1,13 +1,19 @@
 
-import Header from "../../components/header/Header";
+import Aside from "../../components/aside/Aside";
+
 
 
 export default function AdmHome() {
         return (  
-            <div className=" bg-blue-500 overflow">
-            <Header />
+            <>
+            <Aside />
+            <div className=" bg-gray-300 h-screen">
+            
+            
             
 
             </div>
+
+            </>
         );
 }
