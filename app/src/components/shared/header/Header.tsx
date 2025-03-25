@@ -1,5 +1,6 @@
 import { NavLinks } from "./NavLinks"
 import { useState } from "react";
+import './style.css'
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false); // initiate isNavOpen state with false
@@ -7,7 +8,8 @@ export default function Header() {
   const closeMenu = () => setIsNavOpen(false);
 
   return (
-    <div className="flex items-center justify-between py-8 h-16">
+    <>
+    <div className="flex items-center justify-between py-8 h-16 max-w-7xl mx-auto ">
       
       <nav>
         <section className="MOBILE-MENU flex lg:hidden">
@@ -43,14 +45,9 @@ export default function Header() {
                 <NavLinks href="/adm" onClick={closeMenu}>Home</NavLinks>
               </li>
               <li className="border-b border-blue-400 my-8 uppercase text-blue-900 font-bold">
-                <NavLinks href="/estacoes" onClick={closeMenu}>Estacoes</NavLinks>
+                <NavLinks href="/login" onClick={closeMenu}>Login</NavLinks>
               </li>
-              <li className="border-b border-blue-400 my-8 uppercase text-blue-900 font-bold">
-                <NavLinks href="/cadastroestacao" onClick={closeMenu}>Cadastro Estacoes</NavLinks>
-              </li>
-              <li className="border-b border-blue-400 my-8 uppercase text-blue-900 font-bold">
-                <NavLinks href="/hobbies" onClick={closeMenu}>Hobbies</NavLinks>
-              </li>
+              
             </ul>
           </div>
         </section>
@@ -59,37 +56,16 @@ export default function Header() {
           <li className="border-b border-blue-400 my-8 uppercase text-blue-900 font-bold">
             <NavLinks href="/">Home</NavLinks>
           </li>
+          
           <li className="border-b border-blue-400 my-8 uppercase text-blue-900 font-bold">
-            <NavLinks href="/cadastrestacao">Cadastro Estacao</NavLinks>
-          </li>
-          <li className="border-b border-blue-400 my-8 uppercase text-blue-900 font-bold">
-            <NavLinks href="/estacoes">Estacoes</NavLinks>
+            <NavLinks href="/login">Login</NavLinks>
           </li>
           
         </ul>
       </nav>
-      <style>{`
-      .hideMenuNav {
-        display: none;
-      }
-      .showMenuNav {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        background: linear-gradient(to top, 
-        rgba(245, 246, 252, 0.8),
-        rgba(86, 201, 255, 0.8) );
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-      }
-    `}</style>
+      
 
     </div>
+    </>
   );
 }

@@ -1,8 +1,13 @@
 import MedidorVento from "../../assets/medidor-vento.png";
+import Container from "../../components/shared/Container";
+import Header from "../../components/shared/header/Header";
 
 
 export default function Home() {
   return (
+    <>
+    <Container>
+        <Header />
         <section className="w-full mx-auto py-10 bg-gray-50 dark:bg-gray-900 dark:text-white">
             {/* <!-- Title --> */}
             <div
@@ -89,7 +94,8 @@ export default function Home() {
 
             </div>
         </section>
+        </Container>
 
-
+        </>
   );
 }

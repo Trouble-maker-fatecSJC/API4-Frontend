@@ -1,13 +1,13 @@
-
-import Header from "../../components/header/Header";
-
+import Aside from "../../components/shared/aside/Aside";
+import Container from "../../components/shared/Container";
 
 export default function AdmHome() {
-        return (  
-            <div className=" bg-blue-500 overflow">
-            <Header />
-            
-
-            </div>
-        );
+  return (
+    <>
+      <Aside />
+      <Container>
+      <div className=" bg-amber-300 h-screen"></div>
+      </Container>
+    </>
+  );
 }
