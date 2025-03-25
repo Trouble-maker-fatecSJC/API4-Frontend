@@ -8,6 +8,9 @@ import CadastroEstacao from "../components/estacao/CadastroEstacao";
 import CadastroUsuario from "../components/usuario/CadastroUsuario";
 import Usuarios from "../components/usuario/Usuarios";
 import EditarUsuario from "../components/usuario/EditarUsuario";
+import CadastroMedidas from "../components/medidas/CadastroMedidas";
+import Medida from "../components/medidas/Medidas";
+import EditarMedida from "../components/medidas/EditarMedidas";
 
 export default function AppRoutes(){
     return (
@@ -20,6 +23,9 @@ export default function AppRoutes(){
         <Route path="/cadastrousuario" element={<CadastroUsuario />} />
         <Route path='/usuarios' element={<Usuarios />} />
         <Route path="/editarusuario/:cpfEdicao" element={<EditarUsuario />} />
+        <Route path="/cadastromedidas" element={<CadastroMedidas />} />
+        <Route path="/medidas" element={<Medida />} />
+        <Route path="/editarmedida/:idEdicao" element={<EditarMedida />} />
 
         
 

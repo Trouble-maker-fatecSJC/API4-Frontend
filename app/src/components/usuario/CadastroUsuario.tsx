@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import Header from '../header/Header';
-import Aside from '../aside/Aside';
+import Aside from '../shared/aside/Aside';
 
 export default function CadastroUsuario() {
 

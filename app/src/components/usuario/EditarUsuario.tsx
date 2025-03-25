@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Aside from '../aside/Aside';
+import Aside from '../shared/aside/Aside';
 import Usuario from '../../model/usuario';
 import { useNavigate, useParams } from 'react-router-dom';
 
