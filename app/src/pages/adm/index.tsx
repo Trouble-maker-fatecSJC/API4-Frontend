@@ -1,19 +1,13 @@
-
-import Aside from "../../components/aside/Aside";
-
-
+import Aside from "../../components/shared/aside/Aside";
+import Container from "../../components/shared/Container";
 
 export default function AdmHome() {
-        return (  
-            <>
-            <Aside />
-            <div className=" bg-gray-300 h-screen">
-            
-            
-            
-
-            </div>
-
-            </>
-        );
+  return (
+    <>
+      <Aside />
+      <Container>
+      <div className=" bg-amber-300 h-screen"></div>
+      </Container>
+    </>
+  );
 }
