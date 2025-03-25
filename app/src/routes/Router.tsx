@@ -11,6 +11,9 @@ import EditarUsuario from "../components/usuario/EditarUsuario";
 import CadastroMedidas from "../components/medidas/CadastroMedidas";
 import Medida from "../components/medidas/Medidas";
 import EditarMedida from "../components/medidas/EditarMedidas";
+import CadastroTipoParametro from "../components/tipoParametro/CadastroTipoParametro";
+import EditarTipoParametro from "../components/tipoParametro/EditarTipoParametro";
+import TipoParametros from "../components/tipoParametro/TipoParametros";
 
 export default function AppRoutes(){
     return (
@@ -26,6 +29,9 @@ export default function AppRoutes(){
         <Route path="/cadastromedidas" element={<CadastroMedidas />} />
         <Route path="/medidas" element={<Medida />} />
         <Route path="/editarmedida/:idEdicao" element={<EditarMedida />} />
+        <Route path="/cadastrotipoparametro" element={<CadastroTipoParametro />} />
+        <Route path="/tipoparametro" element={<TipoParametros />} />
+        <Route path="/editartipoparametro/:idEdicao" element={<EditarTipoParametro />} />
 
         
 
