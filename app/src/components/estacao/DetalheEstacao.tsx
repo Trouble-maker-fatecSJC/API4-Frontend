@@ -163,16 +163,17 @@ export default function DetalheEstacao({ estacao, onClose, onDeleteEstacao }: De
   };
 
   const handleEditClick = () => {
-    onEditEstacao(estacao.id);
     setIsEditing(true);
+    
   };
+  
 
   const handleCloseEdit = () => {
     setIsEditing(false);
   };
 
   return (
-    <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 
+    <div className="overflow-y-auto overflow-x-hidden  top-0 right-0 left-0 z-50 
     items-center justify-center flex-col max-w-md mx-5 md:mx-auto mt-16 bg-white rounded-lg overflow-hidden shadow-2xl ">
       <div className="relative text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase ">
         <button onClick={onClose} className="absolute top-0 right-1 btn-close p-1">
@@ -210,13 +211,6 @@ export default function DetalheEstacao({ estacao, onClose, onDeleteEstacao }: De
           <h2 className="text-gray-700 font-bold mb-2">Indicativo Ativa:</h2>
           <p>{estacao.status ? 'Ativa' : 'Inativa'}</p>
         </div>
-
-        {/* 
-        <div className="mb-4">
-          <h2 className="text-gray-700 font-bold mb-2">Tipo de Estação:</h2>
-          <p>{estacao.Tipo_Estacao}</p>
-        </div>
-         */}
 
         <div className="mb-4 flex justify-center gap-4">
           <button className="btn-editar" onClick={handleEditClick}>
@@ -267,9 +261,7 @@ export default function DetalheEstacao({ estacao, onClose, onDeleteEstacao }: De
       )}
 
       {/* Componente de Edição */}
-      {isEditing && (
-        <EditarEstacao estacaoId={estacao.id} onClose={handleCloseEdit} />
-      )}
+      {isEditing && <EditarEstacao estacao={estacao} onClose={handleCloseEdit} />}
     </div>
   );
 }
