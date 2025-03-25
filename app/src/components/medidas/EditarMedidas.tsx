@@ -3,6 +3,7 @@ import Aside from '../shared/aside/Aside';
 import { useNavigate, useParams } from 'react-router-dom';
 import Medidas from '../../model/Medidas';
 
+
 export default function EditarMedida() {
     const navigate = useNavigate();
     const { idEdicao } = useParams(); // Usando o hook useParams para pegar o ID da URL
