@@ -106,11 +106,11 @@ export default function EditarMedida() {
                         />
                     </div>
                     <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
-                        <button className="bg-blue-600 text-white p-2 rounded w-full sm:w-auto" type="submit">
+                        <button className="btn-cadastrar" type="submit">
                             Salvar
                         </button>
                         <button
-                            className="border border-red-500 p-2 rounded w-full sm:w-auto"
+                            className="btn-cancelar"
                             type="button"
                             onClick={() => navigate('/medidas')}
                         >

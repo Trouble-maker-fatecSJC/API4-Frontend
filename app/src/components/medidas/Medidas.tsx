@@ -57,9 +57,10 @@ export default function Medida() {
                         <table className="w-full mt-4 border-collapse border border-gray-300 dark:border-gray-700 text-sm sm:text-base">
                             <thead>
                                 <tr className="bg-gray-50 dark:bg-gray-800 text-left text-white">
-                                    <th className="py-2 px-4 border">Descrição</th>
+                                    
                                     <th className="py-2 px-4 border">Valor</th>
                                     <th className="py-2 px-4 border">UnixTime</th>
+                                    <th className="py-2 px-4 border">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>

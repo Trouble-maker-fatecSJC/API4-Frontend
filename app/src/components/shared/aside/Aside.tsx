@@ -6,6 +6,7 @@ export default function Aside() {
   const [dropDownUsuario, setDropDownUsuario] = useState(false); 
   const [dropDownMedida, setDropDownMedida] = useState(false);
   const [dropDownTp, setDropDownTp] = useState(false);
+  const [dropDownP, setDropDownP] = useState(false);
 
   // Função para alternar o menu (abrir/fechar)
   const toggleMenu = () => setIsSideOpen(!isSideOpen);
@@ -18,6 +19,7 @@ export default function Aside() {
   const toggleDropdownU = () => setDropDownUsuario(!dropDownUsuario);
   const toggleDropdownM = () => setDropDownMedida(!dropDownMedida);
   const toggleDropdownTp = () => setDropDownTp(!dropDownTp);
+  const toggleDropdownP = () => setDropDownP(!dropDownP);
 
   return (
     <>
@@ -214,6 +216,46 @@ export default function Aside() {
                 </li> 
               </ul>
             </li>
+            
+
+            {/* -------------Parametro----------------- */}
+            <li>
+              <button onClick={toggleDropdownP} type="button"
+                className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                aria-controls="dropdown-example" data-collapse-toggle="dropdown-example"
+              >
+                <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+                  Parametro
+                </span>
+                <svg className="w-3 h-3" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 10 6"
+                >
+                  <path stroke="currentColor"
+                    strokeLinecap="round" strokeLinejoin="round"
+                    strokeWidth="2" d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              </button>
+              <ul className={`${dropDownP ? "block" : "hidden"} py-2 space-y-2`}>
+                <li>
+                  <a href="/cadastroparametro" onClick={closeMenu}
+                    className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                  >
+                    Cadastrar
+                  </a>
+                </li>
+                <li>
+                  <a href="/parametros" onClick={closeMenu}
+                    className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                  >
+                    Listar
+                  </a>
+                </li> 
+              </ul>
+            </li>
+
+
 
             {/* -------------Tipo Parametro----------------- */}
             <li>
