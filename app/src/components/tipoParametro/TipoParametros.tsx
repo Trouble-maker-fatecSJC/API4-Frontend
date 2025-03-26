@@ -56,7 +56,7 @@ export default function TipoParametros() {
                     <div className="overflow-x-auto">
                         <table className="w-full mt-4 border-collapse border border-gray-300 dark:border-gray-700 text-sm sm:text-base">
                             <thead>
-                                <tr className="bg-gray-50 dark:bg-gray-800 text-left">
+                                <tr className="bg-gray-50 dark:bg-gray-800 text-left text-white">
                                     <th className="py-2 px-4 border">Josn Param</th>
                                     <th className="py-2 px-4 border">Nome</th>
                                     <th className="py-2 px-4 border">Unidade</th>
@@ -75,12 +75,12 @@ export default function TipoParametros() {
                                         <td className="py-2 px-4 border flex space-x-2">
                                             <button 
                                                 onClick={() => handleEditar(TipoParametros.id_tipo_param)}
-                                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">
+                                                className="btn-editar">
                                                 Editar
                                             </button>
                                             <button 
                                                 onClick={() => handleExcluir(TipoParametros.id_tipo_param)}
-                                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+                                                className="btn-delete">
                                                 Excluir
                                             </button>
                                         </td>

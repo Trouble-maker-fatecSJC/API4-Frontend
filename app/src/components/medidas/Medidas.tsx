@@ -56,7 +56,7 @@ export default function Medida() {
                     <div className="overflow-x-auto">
                         <table className="w-full mt-4 border-collapse border border-gray-300 dark:border-gray-700 text-sm sm:text-base">
                             <thead>
-                                <tr className="bg-gray-50 dark:bg-gray-800 text-left">
+                                <tr className="bg-gray-50 dark:bg-gray-800 text-left text-white">
                                     <th className="py-2 px-4 border">Descrição</th>
                                     <th className="py-2 px-4 border">Valor</th>
                                     <th className="py-2 px-4 border">UnixTime</th>
@@ -70,12 +70,12 @@ export default function Medida() {
                                         <td className="py-2 px-4 border flex space-x-2">
                                             <button 
                                                 onClick={() => handleEditar(medida.id_medida)}
-                                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">
+                                                className="btn-editar">
                                                 Editar
                                             </button>
                                             <button 
                                                 onClick={() => handleExcluir(medida.id_medida)}
-                                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+                                                className="btn-delete">
                                                 Excluir
                                             </button>
                                         </td>

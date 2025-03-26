@@ -3,6 +3,7 @@ import Usuario from '../../model/usuario';
 import Aside from '../shared/aside/Aside';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function Usuarios() {
     
     const navigate = useNavigate();
@@ -55,7 +56,7 @@ export default function Usuarios() {
                     <div className="overflow-x-auto">
                         <table className="w-full mt-4 border-collapse border border-gray-300 dark:border-gray-700 text-sm sm:text-base">
                             <thead>
-                                <tr className="bg-gray-50 dark:bg-gray-800 text-left">
+                                <tr className="bg-gray-50 dark:bg-gray-800 text-left text-white">
                                     <th className="py-2 px-4 border">Nome</th>
                                     <th className="py-2 px-4 border">Email</th>
                                     <th className="py-2 px-4 border">Telefone</th>
@@ -72,12 +73,12 @@ export default function Usuarios() {
                                         <td className="py-2 px-4 border flex space-x-2">
                                             <button 
                                                 onClick={() => handleEditar(usuario.cpf)}
-                                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">
+                                                className="btn-editar">
                                                 Editar
                                             </button>
                                             <button 
                                                 onClick={() => handleExcluir(usuario.cpf)}
-                                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+                                                className="btn-delete">
                                                 Excluir
                                             </button>
                                         </td>
