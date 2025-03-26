@@ -158,7 +158,7 @@ export default function DetalheEstacao({ estacao, onClose, onDeleteEstacao }: De
   };
 
   const handleDeleteEstacao = () => {
-    onDeleteEstacao(estacao.id);
+    onDeleteEstacao(estacao.id_estacao);
     setDeleteModalOpen(false);
   };
 

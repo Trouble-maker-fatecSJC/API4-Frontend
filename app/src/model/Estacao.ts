@@ -1,5 +1,5 @@
 export default interface Estacao {
-	id: number
+	id_estacao: number
 	nome: string
 	endereco: string
     latitude: string
