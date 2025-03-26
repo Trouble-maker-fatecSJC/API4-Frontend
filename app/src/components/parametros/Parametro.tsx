@@ -36,7 +36,7 @@ export default function Parametros() {
   };
 
   // Função para deletar o parâmetro com confirmação
-  const handleExcluir = async (id) => {
+  const handleExcluir = async (id: string) => {
     if (window.confirm("Deseja realmente excluir esse parâmetro?")) {
       try {
         const response = await fetch(`http://localhost:3000/api/parametro/${id}`, {
@@ -78,9 +78,9 @@ export default function Parametros() {
               <p><strong>Temperatura:</strong> {parametro.temperatura}°C</p>
               <p><strong>Umidade:</strong> {parametro.umidade}%</p>
               <p><strong>Chuva:</strong> {parametro.chuva} mm</p>
-              <p><strong>ID Tipo Parâmetro:</strong> {parametro.id_tipo_parametro}</p>
-              <p><strong>ID Estação:</strong> {parametro.id_estacao}</p>
-              <p><strong>ID Medida:</strong> {parametro.id_medida}</p>
+              <p><strong>ID Tipo Parâmetro:</strong> {parametro.tipo_parametro}</p>
+              <p><strong>ID Estação:</strong> {parametro.id_da_estacao}</p>
+              <p><strong>ID Medida:</strong> {parametro.id_de_medida}</p>
             </div>
           )}
 
