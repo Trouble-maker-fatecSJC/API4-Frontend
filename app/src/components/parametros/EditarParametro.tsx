@@ -5,8 +5,9 @@ import Medida from "../../model/Medidas";
 import Parametro from "../../model/Parametro";
 import TipoParametro from "../../model/TipoParametros";
 import Usuario from "../../model/usuario";
+import { useParams, useNavigate } from "react-router-dom";
 
-export default function CadastroParametro() {
+export default function EditarParametro() {
   const [velocidadeVento, setVelocidadeVento] = useState<number>(0);
   const [direcaoVento, setDirecaoVento] = useState<number>(0);
   const [temperatura, setTemperatura] = useState<number>(0);
@@ -22,6 +23,9 @@ export default function CadastroParametro() {
   const [tipoParametro, setTipoParametro] = useState<number | string>(""); // Tipo como número ou string vazia
   const [idEstacao, setIdEstacao] = useState<string>(""); // Tipo como número ou string vazia
   const [idMedida, setIdMedida] = useState<number | string>(""); // Tipo como número ou string vazia
+
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,35 +55,72 @@ export default function CadastroParametro() {
     fetchData();
   }, []);
 
+
+  useEffect(() => {
+    const fetchParametro = async () => {
+      if (!id) return; // Verifica se o id_parametro está disponível
+  
+      try {
+        const response = await fetch(`http://localhost:3000/api/parametro/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+  
+          // Atualiza os estados com os dados do parâmetro
+          setVelocidadeVento(data.velocidade_vento || 0);
+          setDirecaoVento(data.direcao_vento || 0);
+          setTemperatura(data.temperatura || 0);
+          setUmidade(data.umidade || 0);
+          setChuva(data.chuva || 0);
+          setCpfUsuario(data.cpf_usuario || "");
+          setTipoParametro(data.id_tipo_parametro || "");
+          setIdEstacao(data.id_estacao?.toString() || "");
+          setIdMedida(data.id_medida?.toString() || "");
+        } else {
+          console.error("Erro ao buscar o parâmetro:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Erro ao conectar com o servidor:", error);
+      }
+    };
+  
+    fetchParametro();
+  }, [id]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const idParametro = Number(id); // Converte o id para número
     const idEstacaoNumber = Number(idEstacao);
-    // Convertendo para número ou null se estiver vazio
+    console.log("ID do parâmetro:", id);
+    
+
     const novoParametro: Parametro = {
-      velocidade_vento: velocidadeVento,
-      direcao_vento: direcaoVento,
-      temperatura: temperatura,
-      umidade: umidade,
-      chuva: chuva,
-      cpf_usuario: cpfUsuario,
-      tipo_parametro: Number(tipoParametro), // Garantindo que o tipo seja número
-      id_da_estacao: idEstacaoNumber, // Convertendo para número
-      id_de_medida: Number(idMedida), // Convertendo para número
-    };
+        velocidade_vento: velocidadeVento,
+        direcao_vento: direcaoVento,
+        temperatura: temperatura,
+        umidade: umidade,
+        chuva: chuva,
+        cpf_usuario: cpfUsuario,
+        tipo_parametro: Number(tipoParametro), // Altere para "tipo_parametro"
+        id_da_estacao: idEstacaoNumber, // Altere para "id_da_estacao"
+        id_de_medida: Number(idMedida), // Altere para "id_de_medida"
+      };
 
     console.log("Enviando dados:", novoParametro);
 
     try {
-      const response = await fetch("http://localhost:3000/api/parametro", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(novoParametro),
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/parametro/${idParametro}`,
+        {
+          method: "PUT", // Mudando para PUT
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(novoParametro),
+        }
+      );
 
       if (response.ok) {
-        alert("Parâmetro cadastrado com sucesso!");
+        alert("Parâmetro atualizado com sucesso!");
         // Resetando os campos após o envio
         setVelocidadeVento(0);
         setDirecaoVento(0);
@@ -91,7 +132,7 @@ export default function CadastroParametro() {
         setIdEstacao("");
         setIdMedida("");
       } else {
-        alert("Erro ao cadastrar parâmetro");
+        alert("Erro ao atualizar parâmetro");
       }
     } catch (error) {
       alert("Erro ao conectar com o servidor");
@@ -99,12 +140,16 @@ export default function CadastroParametro() {
     }
   };
 
+  const handleCancel = () => {
+    navigate("/parametros"); // Navegar para /parametros
+  };
+
   return (
     <>
       <Aside />
       <div className="max-w-md mx-auto mt-10 p-4 bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
-          Cadastro de Parâmetro
+          Edição de Parâmetro
         </div>
         <form className="py-4 px-6" onSubmit={handleSubmit}>
           {/* Campo Velocidade do Vento */}
@@ -314,7 +359,14 @@ export default function CadastroParametro() {
 
           <div className="flex items-center justify-center mt-6">
             <button className="btn-cadastrar" type="submit">
-              Cadastrar Parâmetro
+              Salvar Alterações
+            </button>
+            <button
+              type="button"
+              className="btn-cancelar ml-4" // Classe para o botão cancelar
+              onClick={handleCancel} // Chamando a função de cancelar
+            >
+              Cancelar Alterações
             </button>
           </div>
         </form>
