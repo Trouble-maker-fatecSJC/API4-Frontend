@@ -5,6 +5,7 @@ export default function Aside() {
   const [dropDownEstacao, setDropDownEstacao] = useState(false);
   const [dropDownUsuario, setDropDownUsuario] = useState(false); 
   const [dropDownMedida, setDropDownMedida] = useState(false);
+  const [dropDownTp, setDropDownTp] = useState(false);
 
   // Função para alternar o menu (abrir/fechar)
   const toggleMenu = () => setIsSideOpen(!isSideOpen);
@@ -16,6 +17,7 @@ export default function Aside() {
   const toggleDropdown = () => setDropDownEstacao(!dropDownEstacao);
   const toggleDropdownU = () => setDropDownUsuario(!dropDownUsuario);
   const toggleDropdownM = () => setDropDownMedida(!dropDownMedida);
+  const toggleDropdownTp = () => setDropDownTp(!dropDownTp);
 
   return (
     <>
@@ -213,9 +215,9 @@ export default function Aside() {
               </ul>
             </li>
 
-            {/* -------------medidas----------------- */}
+            {/* -------------Tipo Parametro----------------- */}
             <li>
-              <button onClick={toggleDropdownM} type="button"
+              <button onClick={toggleDropdownTp} type="button"
                 className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
                 aria-controls="dropdown-example" data-collapse-toggle="dropdown-example"
               >
@@ -232,7 +234,7 @@ export default function Aside() {
                   />
                 </svg>
               </button>
-              <ul className={`${dropDownMedida ? "block" : "hidden"} py-2 space-y-2`}>
+              <ul className={`${dropDownTp ? "block" : "hidden"} py-2 space-y-2`}>
                 <li>
                   <a href="/cadastrotipoparametro" onClick={closeMenu}
                     className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
