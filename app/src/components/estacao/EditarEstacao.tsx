@@ -192,7 +192,7 @@ interface EditarEstacaoProps {
 
 export default function EditarEstacao({ estacao, onClose }: EditarEstacaoProps) {
   // Estados para armazenar os dados do formulário
-  const [id, setId] = useState(0);
+  const [id_estacao, setId] = useState(0);
   const [nome, setNome] = useState('');
   const [endereco, setEndereco] = useState('');
   const [latitude, setLatitude] = useState('');
@@ -206,7 +206,7 @@ export default function EditarEstacao({ estacao, onClose }: EditarEstacaoProps) 
 
   // Carregar os dados da estação a ser editada
   useEffect(() => {
-    setId(estacao.id);
+    setId(estacao.id_estacao);
     setNome(estacao.nome);
     setEndereco(estacao.endereco);
     setLatitude(estacao.latitude.toString());
@@ -229,7 +229,7 @@ export default function EditarEstacao({ estacao, onClose }: EditarEstacaoProps) 
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/api/estacao/${estacao.id}`, {
+      const response = await fetch(`http://localhost:3000/api/estacao/${estacao.id_estacao}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

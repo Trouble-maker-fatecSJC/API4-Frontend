@@ -294,12 +294,12 @@ export default function Estacoes() {
   // Função para deletar uma estação
   const deletarEstacao = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/estacoes${id}`, {
+      const response = await fetch(`http://localhost:3000/api/estacoes/${id}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
-        setEstacoes(estacoes.filter((estacao) => estacao.id !== id));
+        setEstacoes(estacoes.filter((estacao) => estacao.id_estacao !== id));
         alert("Estação deletada com sucesso");
       } else {
         alert("Erro ao deletar a estação");
@@ -317,7 +317,7 @@ export default function Estacoes() {
       <div className="flex sm:flex-row gap-4  items-center flex-col flex-wrap h-full">
         {estacoes.map((estacao) => (
           <div
-            key={estacao.id}
+            key={estacao.id_estacao}
             className="relative bg-gray-900 block py-4 px-6 border border-gray-100 rounded-lg min-w-[340px] min-h-[220px] mt-4"
           >
             <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-green-500 to-green-600"></span>
