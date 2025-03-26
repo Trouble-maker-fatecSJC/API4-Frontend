@@ -15,6 +15,7 @@ import CadastroTipoParametro from "../components/tipoParametro/CadastroTipoParam
 import EditarTipoParametro from "../components/tipoParametro/EditarTipoParametro";
 import TipoParametros from "../components/tipoParametro/TipoParametros";
 import CadastroParametro from "../components/parametros/Cadastroparametro";
+import EditarEstacao from "../components/estacao/EditarEstacao";
 
 export default function AppRoutes(){
     return (
@@ -25,7 +26,8 @@ export default function AppRoutes(){
 
         <Route path="/estacoes" element={<Estacoes />} />
         <Route path="/cadastroestacao" element={<CadastroEstacao />} />
-
+        <Route path="/editarestacao/:idEdicao" element={<EditarEstacao />} />
+        
         <Route path='/usuarios' element={<Usuarios />} />
         <Route path="/cadastrousuario" element={<CadastroUsuario />} />
         <Route path="/editarusuario/:cpfEdicao" element={<EditarUsuario />} />
