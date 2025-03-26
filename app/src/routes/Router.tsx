@@ -21,19 +21,21 @@ export default function AppRoutes(){
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/adm" element={<AdmHome />} />
+
         <Route path="/estacoes" element={<Estacoes />} />
         <Route path="/cadastroestacao" element={<CadastroEstacao />} />
-        <Route path="/cadastrousuario" element={<CadastroUsuario />} />
-        <Route path='/usuarios' element={<Usuarios />} />
-        <Route path="/editarusuario/:cpfEdicao" element={<EditarUsuario />} />
-        <Route path="/cadastromedidas" element={<CadastroMedidas />} />
-        <Route path="/medidas" element={<Medida />} />
-        <Route path="/editarmedida/:idEdicao" element={<EditarMedida />} />
-        <Route path="/cadastrotipoparametro" element={<CadastroTipoParametro />} />
-        <Route path="/tipoparametro" element={<TipoParametros />} />
-        <Route path="/editartipoparametro/:idEdicao" element={<EditarTipoParametro />} />
 
+        <Route path='/usuarios' element={<Usuarios />} />
+        <Route path="/cadastrousuario" element={<CadastroUsuario />} />
+        <Route path="/editarusuario/:cpfEdicao" element={<EditarUsuario />} />
         
+        <Route path="/medidas" element={<Medida />} />
+        <Route path="/cadastromedidas" element={<CadastroMedidas />} />
+        <Route path="/editarmedida/:idEdicao" element={<EditarMedida />} />
+        
+        <Route path="/tipoparametro" element={<TipoParametros />} />
+        <Route path="/cadastrotipoparametro" element={<CadastroTipoParametro />} />
+        <Route path="/editartipoparametro/:idEdicao" element={<EditarTipoParametro />} />
 
         <Route path="*" element={<PaginaNaoEncontrada />} />
         {/* Rota para página 404 */}

@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-
 export default function Aside() {
   const [isSideOpen, setIsSideOpen] = useState(false); // Estado para controlar a visibilidade do menu
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Estado para controlar a visibilidade do dropdown
+  const [dropDownEstacao, setDropDownEstacao] = useState(false);
+  const [dropDownUsuario, setDropDownUsuario] = useState(false); 
+  const [dropDownMedida, setDropDownMedida] = useState(false);
 
   // Função para alternar o menu (abrir/fechar)
   const toggleMenu = () => setIsSideOpen(!isSideOpen);
@@ -12,7 +13,9 @@ export default function Aside() {
   const closeMenu = () => setIsSideOpen(false);
 
   // Função para alternar a visibilidade do dropdown
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const toggleDropdown = () => setDropDownEstacao(!dropDownEstacao);
+  const toggleDropdownU = () => setDropDownUsuario(!dropDownUsuario);
+  const toggleDropdownM = () => setDropDownMedida(!dropDownMedida);
 
   return (
     <>
@@ -110,11 +113,11 @@ export default function Aside() {
                   />
                 </svg>
               </button>
-              {/* Exibir o dropdown se o estado `isDropdownOpen` for verdadeiro */}
+              {/* Exibir o dropdown se o estado `dropDownEstacao` for verdadeiro */}
               <ul
                 id="dropdown-example"
                 className={`${
-                  isDropdownOpen ? "block" : "hidden"
+                  dropDownEstacao ? "block" : "hidden"
                 } py-2 space-y-2`}
               >
                 <li>
@@ -134,10 +137,119 @@ export default function Aside() {
                   >
                     Listar
                   </a>
-                </li>
-                
+                </li> 
               </ul>
             </li>
+            {/* -------------usuario----------------- */}
+            <li>
+              <button onClick={toggleDropdownU} type="button"
+                className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                aria-controls="dropdown-example" data-collapse-toggle="dropdown-example"
+              >
+                <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+                  Usuario
+                </span>
+                <svg className="w-3 h-3" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 10 6"
+                >
+                  <path stroke="currentColor"
+                    strokeLinecap="round" strokeLinejoin="round"
+                    strokeWidth="2" d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              </button>
+              <ul className={`${dropDownUsuario ? "block" : "hidden"} py-2 space-y-2`}>
+                <li>
+                  <a href="/cadastrousuario" onClick={closeMenu}
+                    className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                  >
+                    Cadastrar
+                  </a>
+                </li>
+                <li>
+                  <a href="/usuarios" onClick={closeMenu}
+                    className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                  >
+                    Listar
+                  </a>
+                </li> 
+              </ul>
+            </li>
+            {/* -------------medidas----------------- */}
+            <li>
+              <button onClick={toggleDropdownM} type="button"
+                className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                aria-controls="dropdown-example" data-collapse-toggle="dropdown-example"
+              >
+                <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+                  Medidas
+                </span>
+                <svg className="w-3 h-3" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 10 6"
+                >
+                  <path stroke="currentColor"
+                    strokeLinecap="round" strokeLinejoin="round"
+                    strokeWidth="2" d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              </button>
+              <ul className={`${dropDownMedida ? "block" : "hidden"} py-2 space-y-2`}>
+                <li>
+                  <a href="/cadastromedidas" onClick={closeMenu}
+                    className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                  >
+                    Cadastrar
+                  </a>
+                </li>
+                <li>
+                  <a href="/medidas" onClick={closeMenu}
+                    className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                  >
+                    Listar
+                  </a>
+                </li> 
+              </ul>
+            </li>
+
+            {/* -------------medidas----------------- */}
+            <li>
+              <button onClick={toggleDropdownM} type="button"
+                className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                aria-controls="dropdown-example" data-collapse-toggle="dropdown-example"
+              >
+                <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+                  Tipo de Parametro
+                </span>
+                <svg className="w-3 h-3" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 10 6"
+                >
+                  <path stroke="currentColor"
+                    strokeLinecap="round" strokeLinejoin="round"
+                    strokeWidth="2" d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              </button>
+              <ul className={`${dropDownMedida ? "block" : "hidden"} py-2 space-y-2`}>
+                <li>
+                  <a href="/cadastrotipoparametro" onClick={closeMenu}
+                    className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                  >
+                    Cadastrar
+                  </a>
+                </li>
+                <li>
+                  <a href="/tipoparametro" onClick={closeMenu}
+                    className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
+                  >
+                    Listar
+                  </a>
+                </li> 
+              </ul>
+            </li>
+
           </ul>
         </div>
       </aside>
