@@ -21,8 +21,9 @@ import EditarParametro from "../components/parametros/EditarParametro";
 import CadastroTipoAlerta from "../components/tipoAlerta/CadastroTipoAlerta";
 import TipoAlertas from "../components/tipoAlerta/TipoAlertas";
 import EditarTipoAlerta from "../components/tipoAlerta/EditarTipoAlerta";
+import CadastrarAlerta from "../components/alerta/CadastrarAlerta";
 
-import PrivateRoute from "./PrivateRoute"; // Importa o componente de rota protegida
+// import PrivateRoute from "./PrivateRoute"; // Importa o componente de rota protegida
 
 export default function AppRoutes() {
   return (
@@ -31,7 +32,7 @@ export default function AppRoutes() {
       <Route path="/login" element={<Login />} />
 
       {/* Rotas protegidas */}
-      <Route element={<PrivateRoute />}>
+      {/* <Route element={<PrivateRoute />}> */}
         <Route path="/adm" element={<AdmHome />} />
         <Route path="/estacoes" element={<Estacoes />} />
         <Route path="/cadastroestacao" element={<CadastroEstacao />} />
@@ -56,7 +57,11 @@ export default function AppRoutes() {
         <Route path="/cadastrotipoalerta" element={<CadastroTipoAlerta />} />
         <Route path="/tipoalertas" element={<TipoAlertas />} />
         <Route path="/editartipoalerta/:id" element={<EditarTipoAlerta />} />
-      </Route>
+
+
+        <Route path="/cadastroalerta" element={<CadastrarAlerta />} />
+
+      {/* </Route> */}
 
       <Route path="*" element={<PaginaNaoEncontrada />} />
     </Routes>
