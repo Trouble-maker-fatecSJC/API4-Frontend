@@ -22,25 +22,29 @@ import CadastroTipoAlerta from "../components/tipoAlerta/CadastroTipoAlerta";
 import TipoAlertas from "../components/tipoAlerta/TipoAlertas";
 import EditarTipoAlerta from "../components/tipoAlerta/EditarTipoAlerta";
 
-export default function AppRoutes(){
-    return (
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/adm" element={<AdmHome />} />
+import PrivateRoute from "./PrivateRoute"; // Importa o componente de rota protegida
 
+export default function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+
+      {/* Rotas protegidas */}
+      <Route element={<PrivateRoute />}>
+        <Route path="/adm" element={<AdmHome />} />
         <Route path="/estacoes" element={<Estacoes />} />
         <Route path="/cadastroestacao" element={<CadastroEstacao />} />
         <Route path="/editarestacao/:idEdicao" element={<EditarEstacao />} />
-        
-        <Route path='/usuarios' element={<Usuarios />} />
+
+        <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/cadastrousuario" element={<CadastroUsuario />} />
         <Route path="/editarusuario/:cpfEdicao" element={<EditarUsuario />} />
-        
+
         <Route path="/medidas" element={<Medida />} />
         <Route path="/cadastromedidas" element={<CadastroMedidas />} />
         <Route path="/editarmedida/:idEdicao" element={<EditarMedida />} />
-        
+
         <Route path="/tipoparametro" element={<TipoParametros />} />
         <Route path="/cadastrotipoparametro" element={<CadastroTipoParametro />} />
         <Route path="/editartipoparametro/:idEdicao" element={<EditarTipoParametro />} />
@@ -52,10 +56,9 @@ export default function AppRoutes(){
         <Route path="/cadastrotipoalerta" element={<CadastroTipoAlerta />} />
         <Route path="/tipoalertas" element={<TipoAlertas />} />
         <Route path="/editartipoalerta/:id" element={<EditarTipoAlerta />} />
-        
+      </Route>
 
-        <Route path="*" element={<PaginaNaoEncontrada />} />
-        {/* Rota para página 404 */}
-      </Routes>
-    );
-  };
+      <Route path="*" element={<PaginaNaoEncontrada />} />
+    </Routes>
+  );
+}

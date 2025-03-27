@@ -1,29 +1,15 @@
-import {BrowserRouter as Router } from 'react-router-dom'
-// import Home from "./pages/home";
-import AppRoutes from './routes/Router';
-// import Login from "./pages/login";
+import { BrowserRouter as Router } from "react-router-dom";
+import { AuthProvider } from "./context/authContext"; // Importa o AuthProvider
+import AppRoutes from "./routes/Router";
 
 export default function App() {
-  
   return (
-  
-    <Router basename='/'>
-      <div className="page sm">    
-        <AppRoutes /> 
-      </div>
-    </Router>
-
-  )
+    <AuthProvider>
+      <Router basename="/">
+        <div className="page sm">
+          <AppRoutes />
+        </div>
+      </Router>
+    </AuthProvider>
+  );
 }
-
-
-
-{/* <Login /> */}
-      // <Home />
-{/* <Router basename='/'> */}
-      {/* <div className="page sm"> */}
-        {/* <Header />   */}
-          {/* <AppRoutes />  */}
-        {/* <Footer /> */}
-      {/* </div> */}
-    {/* </Router> */}
