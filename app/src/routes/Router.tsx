@@ -17,8 +17,10 @@ import TipoParametros from "../components/tipoParametro/TipoParametros";
 import CadastroParametro from "../components/parametros/Cadastroparametro";
 import EditarEstacao from "../components/estacao/EditarEstacao";
 import Parametros from "../components/parametros/Parametro";
-import EditarParametro from "../components/parametros/Editarparametro";
-
+import EditarParametro from "../components/parametros/EditarParametro";
+import CadastroTipoAlerta from "../components/tipoAlerta/CadastroTipoAlerta";
+import TipoAlertas from "../components/tipoAlerta/TipoAlertas";
+import EditarTipoAlerta from "../components/tipoAlerta/EditarTipoAlerta";
 
 export default function AppRoutes(){
     return (
@@ -46,6 +48,10 @@ export default function AppRoutes(){
         <Route path="/cadastroparametro" element={<CadastroParametro />} />
         <Route path="/parametros" element={<Parametros />} />
         <Route path="/editarparametro/:id" element={<EditarParametro />} />
+
+        <Route path="/cadastrotipoalerta" element={<CadastroTipoAlerta />} />
+        <Route path="/tipoalertas" element={<TipoAlertas />} />
+        <Route path="/editartipoalerta/:id" element={<EditarTipoAlerta />} />
         
 
         <Route path="*" element={<PaginaNaoEncontrada />} />
