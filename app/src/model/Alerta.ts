@@ -1,4 +1,4 @@
-export default interface TipoAlerta {
+export default interface Alerta {
     id_alerta?: number;
     data_alerta: Date;
 
