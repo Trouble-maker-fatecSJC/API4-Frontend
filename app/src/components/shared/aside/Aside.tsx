@@ -80,12 +80,12 @@ export default function Aside() {
           <ul className="space-y-2 font-medium">
             <li>
               <a
-                href="#"
+                href="/adm"
                 onClick={closeMenu} // Fechar o menu ao clicar no link
                 className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
               >
                 
-                <span className="ms-3">Dashboard</span>
+                <span className="ms-3">Coletas</span>
               </a>
             </li>
             <li>
