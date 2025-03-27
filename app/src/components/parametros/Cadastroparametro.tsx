@@ -249,7 +249,7 @@ export default function CadastroParametro() {
               {estacoes.length > 0 ? (
                 estacoes.map((estacao) => (
                   <option key={estacao.id_estacao} value={estacao.id_estacao}>
-                    {estacao.id_estacao}
+                    {estacao.nome}
                   </option>
                 ))
               ) : (
@@ -276,7 +276,7 @@ export default function CadastroParametro() {
               {medidas.length > 0 ? (
                 medidas.map((medida) => (
                   <option key={medida.id_medida} value={medida.id_medida}>
-                    {medida.id_medida}
+                    {medida.valor}
                   </option>
                 ))
               ) : (
