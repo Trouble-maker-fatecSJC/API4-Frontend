@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
+import { fetchWithAuth } from '../../services/api';
 
- export default function EditarEstacao() {
+export default function EditarEstacao() {
   const navigate = useNavigate();
   const { idEstacao } = useParams<{ idEstacao: string }>();
   const id = idEstacao ? Number(idEstacao) : null;
   const location = useLocation();
   const estacao = location.state?.estacao; // Pegando os dados passados na navegação
-console.log("estacao location",estacao.id_estacao);
+  console.log("estacao location", estacao.id_estacao);
 
   const [nome, setNome] = useState(estacao?.nome || '');
   const [endereco, setEndereco] = useState(estacao?.endereco || '');
@@ -23,9 +24,7 @@ console.log("estacao location",estacao.id_estacao);
 
     async function fetchEstacao() {
       try {
-        const response = await fetch(`http://localhost:3000/api/estacao/${estacao.id_estacao}`);
-        if (!response.ok) throw new Error('Erro ao carregar os dados');
-        const data = await response.json();
+        const data = await fetchWithAuth(`http://localhost:3000/api/estacao/${id}`);
         setNome(data.nome);
         setEndereco(data.endereco);
         setLatitude(data.latitude.toString());
@@ -39,10 +38,7 @@ console.log("estacao location",estacao.id_estacao);
     }
     fetchEstacao();
   }, [id, estacao, navigate]);
-  
 
-
-  
   // Função para enviar os dados editados para o servidor
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,9 +54,8 @@ console.log("estacao location",estacao.id_estacao);
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/api/estacao/${estacao.id_estacao}`, {
+      const response = await fetchWithAuth(`http://localhost:3000/api/estacao/${estacao.id_estacao}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dadosEstacao),
       });
       if (!response.ok) throw new Error('Erro ao editar a estação');
@@ -70,10 +65,6 @@ console.log("estacao location",estacao.id_estacao);
       console.error(error);
       alert('Erro ao conectar com o servidor');
     }
-
-    
-    
-    
   };
 
   return (

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Estacao from "../../model/Estacao";
 import { useNavigate } from "react-router";
+import { fetchWithAuth } from "../../services/api";
 
 interface DetalheEstacaoProps {
   estacao: Estacao;
@@ -28,8 +29,15 @@ export default function DetalheEstacao({
     setDeleteModalOpen(false);
   };
 
-  const handleDeleteEstacao = () => {
-    onDeleteEstacao(estacao.id_estacao);
+  const handleDeleteEstacao = async () => {
+    try {
+      await fetchWithAuth(`http://localhost:3000/api/estacoes/${estacao.id_estacao}`, {
+        method: "DELETE",
+      });
+      onDeleteEstacao(estacao.id_estacao);
+    } catch (error) {
+      console.error("Erro ao deletar estação:", error);
+    }
     setDeleteModalOpen(false);
   };
 

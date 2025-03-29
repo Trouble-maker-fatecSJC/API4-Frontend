@@ -5,6 +5,7 @@ import Medida from "../../model/Medidas";
 import Parametro from "../../model/Parametro";
 import TipoParametro from "../../model/TipoParametros";
 import Usuario from "../../model/usuario";
+import { fetchWithAuth } from "../../services/api";
 
 export default function CadastroParametro() {
   const [velocidadeVento, setVelocidadeVento] = useState<number>(0);
@@ -19,25 +20,17 @@ export default function CadastroParametro() {
   const [medidas, setMedidas] = useState<Medida[]>([]);
 
   const [cpfUsuario, setCpfUsuario] = useState<string>("");
-  const [tipoParametro, setTipoParametro] = useState<number | string>(""); // Tipo como número ou string vazia
-  const [idEstacao, setIdEstacao] = useState<string>(""); // Tipo como número ou string vazia
-  const [idMedida, setIdMedida] = useState<number | string>(""); // Tipo como número ou string vazia
+  const [tipoParametro, setTipoParametro] = useState<number | string>("");
+  const [idEstacao, setIdEstacao] = useState<string>("");
+  const [idMedida, setIdMedida] = useState<number | string>("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resUsuarios = await fetch("http://localhost:3000/api/usuarios");
-        const resTipoParametros = await fetch(
-          "http://localhost:3000/api/tipoparametro"
-        );
-        const resEstacoes = await fetch("http://localhost:3000/api/estacoes");
-        const resMedidas = await fetch("http://localhost:3000/api/medidas");
-
-        const dataUsuarios = await resUsuarios.json();
-        const dataTipoParametros = await resTipoParametros.json();
-        const dataEstacoes = await resEstacoes.json();
-        console.log(dataEstacoes);
-        const dataMedidas = await resMedidas.json();
+        const dataUsuarios = await fetchWithAuth("http://localhost:3000/api/usuarios");
+        const dataTipoParametros = await fetchWithAuth("http://localhost:3000/api/tipoparametro");
+        const dataEstacoes = await fetchWithAuth("http://localhost:3000/api/estacoes");
+        const dataMedidas = await fetchWithAuth("http://localhost:3000/api/medidas");
 
         setUsuarios(dataUsuarios);
         setTipoParametros(dataTipoParametros);
@@ -54,7 +47,7 @@ export default function CadastroParametro() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const idEstacaoNumber = Number(idEstacao);
-    // Convertendo para número ou null se estiver vazio
+
     const novoParametro: Parametro = {
       velocidade_vento: velocidadeVento,
       direcao_vento: direcaoVento,
@@ -62,25 +55,21 @@ export default function CadastroParametro() {
       umidade: umidade,
       chuva: chuva,
       cpf_usuario: cpfUsuario,
-      tipo_parametro: Number(tipoParametro), // Garantindo que o tipo seja número
-      id_da_estacao: idEstacaoNumber, // Convertendo para número
-      id_de_medida: Number(idMedida), // Convertendo para número
+      tipo_parametro: Number(tipoParametro),
+      id_da_estacao: idEstacaoNumber,
+      id_de_medida: Number(idMedida),
     };
 
     console.log("Enviando dados:", novoParametro);
 
     try {
-      const response = await fetch("http://localhost:3000/api/parametro", {
+      const response = await fetchWithAuth("http://localhost:3000/api/parametro", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(novoParametro),
       });
 
       if (response.ok) {
         alert("Parâmetro cadastrado com sucesso!");
-        // Resetando os campos após o envio
         setVelocidadeVento(0);
         setDirecaoVento(0);
         setTemperatura(0);
@@ -241,7 +230,7 @@ export default function CadastroParametro() {
               id="idEstacao"
               value={idEstacao}
               onChange={(e) => {
-                console.log("Estação selecionada:", e.target.value); // Aqui você verá o valor selecionado
+                console.log("Estação selecionada:", e.target.value);
                 setIdEstacao(e.target.value);
               }}
             >

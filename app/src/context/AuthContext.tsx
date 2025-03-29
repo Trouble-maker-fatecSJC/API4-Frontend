@@ -10,6 +10,7 @@ interface AuthContextType {
   user: User | null;
   login: (token: string) => void;
   logout: () => void;
+  isAuthenticated: () => boolean; // Adicionado
 }
 
 // Criando o contexto de autenticação
@@ -54,8 +55,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
   };
 
+  // Função para verificar se o usuário está autenticado
+  const isAuthenticated = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Nenhum token encontrado no localStorage.");
+      return false;
+    }
+
+    try {
+      const { exp } = JSON.parse(atob(token.split(".")[1]));
+      const isValid = Date.now() < exp * 1000;
+      console.log("Token válido:", isValid);
+      return isValid; // Verifica se o token não expirou
+    } catch (error) {
+      console.error("Erro ao validar o token:", error);
+      return false;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

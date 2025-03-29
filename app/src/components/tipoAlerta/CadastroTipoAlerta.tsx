@@ -2,28 +2,19 @@ import React, { useState, useEffect } from "react";
 import Aside from "../shared/aside/Aside";
 import TipoAlerta from "../../model/TipoAlerta";
 import Parametro from "../../model/Parametro";
-
+import { fetchWithAuth } from "../../services/api";
 
 export default function CadastroTipoAlerta() {
-
   const [nome, setNome] = useState<string>("");
   const [conteudo, setConteudo] = useState<string>("");
   const [parametros, setParametros] = useState<Parametro[]>([]);
-
-  
-  const [Parametro, setParametro] = useState<number | string>(""); // Tipo como número ou string vazia
+  const [Parametro, setParametro] = useState<number | string>("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resParametro = await fetch(
-          "http://localhost:3000/api/parametro"
-        );
-
-        
-        const dataParametros = await resParametro.json();
-        console.log("Dados recebidos:", dataParametros); // Verificar os dados recebidos
-       
+        const dataParametros = await fetchWithAuth("http://localhost:3000/api/parametro");
+        console.log("Dados recebidos:", dataParametros);
         setParametros(dataParametros);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
@@ -35,32 +26,26 @@ export default function CadastroTipoAlerta() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const novoTipoAlerta: TipoAlerta = {
       nome: nome,
       conteudo: conteudo,
       id_do_parametro: Number(Parametro),
-     
     };
 
     console.log("Enviando dados:", novoTipoAlerta);
 
     try {
-      const response = await fetch("http://localhost:3000/api/tipoalerta", {
+      const response = await fetchWithAuth("http://localhost:3000/api/tipoalerta", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(novoTipoAlerta),
       });
 
       if (response.ok) {
         alert("Tipo de alerta cadastrado com sucesso!");
-        // Resetando os campos após o envio
-       setNome("");
-       setConteudo("");
-       setParametro(0);
-
+        setNome("");
+        setConteudo("");
+        setParametro(0);
       } else {
         alert("Erro ao cadastrar Tipo de alerta");
       }

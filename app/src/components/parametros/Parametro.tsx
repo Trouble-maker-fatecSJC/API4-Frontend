@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Parametro from "../../model/Parametros";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { fetchWithAuth } from "../../services/api";
 
 export default function Parametros() {
   const [parametros, setParametros] = useState<Parametro[]>([]);
@@ -11,16 +12,7 @@ export default function Parametros() {
   useEffect(() => {
     const fetchParametros = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/parametro");
-
-        if (!response.ok) {
-          throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
-        }
-
-        const text = await response.text();
-        console.log("Resposta do servidor:", text);
-
-        const data: Parametro[] = JSON.parse(text);
+        const data: Parametro[] = await fetchWithAuth("http://localhost:3000/api/parametro");
         setParametros(data);
       } catch (error) {
         console.error("Erro ao buscar parâmetros:", error);
@@ -39,21 +31,14 @@ export default function Parametros() {
   const handleExcluir = async (id: string) => {
     if (window.confirm("Deseja realmente excluir esse parâmetro?")) {
       try {
-        const response = await fetch(`http://localhost:3000/api/parametro/${id}`, {
+        await fetchWithAuth(`http://localhost:3000/api/parametro/${id}`, {
           method: "DELETE",
         });
-  
-        if (!response.ok) {
-          const errorData = await response.json(); // Para capturar a resposta de erro
-          console.error("Erro ao excluir parâmetro:", errorData);
-          alert("Erro ao excluir o parâmetro.");
-        } else {
-          alert("Parâmetro excluído com sucesso!");
-          // Atualize o estado para remover o parâmetro da lista
-          setParametros((prevParametros) =>
-            prevParametros.filter((parametro) => parametro.id_parametro !== id)
-          );
-        }
+
+        setParametros((prevParametros) =>
+          prevParametros.filter((parametro) => parametro.id_parametro !== id)
+        );
+        alert("Parâmetro excluído com sucesso!");
       } catch (error) {
         console.error("Erro ao excluir o parâmetro:", error);
         alert("Erro ao excluir o parâmetro.");

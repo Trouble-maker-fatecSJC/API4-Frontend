@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Parametro from "../../model/Parametro";
+import { fetchWithAuth } from "../../services/api";
 
 export default function EditarTipoAlerta() {
   const [nome, setNome] = useState<string>("");
   const [conteudo, setConteudo] = useState<string>("");
-  const [idParametro, setIdParametro] = useState<number | string>(""); // Select para id_parametro
+  const [idParametro, setIdParametro] = useState<number | string>("");
   const [parametros, setParametros] = useState<Parametro[]>([]);
 
   const { id } = useParams<{ id: string }>();
@@ -14,8 +15,7 @@ export default function EditarTipoAlerta() {
   useEffect(() => {
     const fetchParametros = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/parametro");
-        const data = await response.json();
+        const data = await fetchWithAuth("http://localhost:3000/api/parametro");
         setParametros(data);
       } catch (error) {
         console.error("Erro ao buscar parâmetros:", error);
@@ -30,17 +30,12 @@ export default function EditarTipoAlerta() {
       if (!id) return;
 
       try {
-        const response = await fetch(`http://localhost:3000/api/tipoalerta/${id}`);
-        if (response.ok) {
-          const data = await response.json();
-          setNome(data.nome || "");
-          setConteudo(data.conteudo || "");
-          setIdParametro(data.parametro?.id || ""); // Ajustado para usar "id"
-        } else {
-          console.error("Erro ao buscar o tipo de alerta:", response.statusText);
-        }
+        const data = await fetchWithAuth(`http://localhost:3000/api/tipoalerta/${id}`);
+        setNome(data.nome || "");
+        setConteudo(data.conteudo || "");
+        setIdParametro(data.parametro?.id || "");
       } catch (error) {
-        console.error("Erro ao conectar com o servidor:", error);
+        console.error("Erro ao buscar o tipo de alerta:", error);
       }
     };
 
@@ -50,17 +45,17 @@ export default function EditarTipoAlerta() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const idParametroNumber = Number(idParametro); // Converter idParametro para número
+    const idParametroNumber = Number(idParametro);
     if (isNaN(idParametroNumber) || idParametroNumber <= 0) {
       alert("Por favor, selecione um parâmetro válido.");
-      console.error("Erro: idParametro não é um número válido."); // Log do erro
+      console.error("Erro: idParametro não é um número válido.");
       return;
     }
 
-    const idTipoAlerta = Number(id); // Converter id para número
+    const idTipoAlerta = Number(id);
     if (isNaN(idTipoAlerta) || idTipoAlerta <= 0) {
       alert("Erro interno: ID do tipo de alerta inválido.");
-      console.error("Erro: idTipoAlerta não é um número válido."); // Log do erro
+      console.error("Erro: idTipoAlerta não é um número válido.");
       return;
     }
 
@@ -68,19 +63,16 @@ export default function EditarTipoAlerta() {
       id_tipo_alerta: idTipoAlerta,
       nome,
       conteudo,
-      parametro: { id: idParametroNumber }, // Ajustado para enviar o parâmetro como objeto aninhado
+      parametro: { id: idParametroNumber },
     };
 
     console.log("Enviando dados para o backend:", novoTipoAlerta);
 
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `http://localhost:3000/api/tipoalerta/${idTipoAlerta}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
           body: JSON.stringify(novoTipoAlerta),
         }
       );
