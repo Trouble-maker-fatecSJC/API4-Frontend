@@ -13,3 +13,5 @@ npm install
 Utilize o comando, para rodar o projeto.
 <br>
 npm run dev
+<br>
+Acesse http://localhost:5173/
