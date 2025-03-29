@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Aside from "../shared/aside/Aside";
+import { fetchWithAuth } from "../../services/api";
 
 export default function CadastroEstacao() {
   // Estado para armazenar os dados do formulário
@@ -35,13 +36,9 @@ export default function CadastroEstacao() {
     console.log("Dados enviados:", dadosEstacao);
 
     try {
-      // Enviar a requisição para a API
-      const response = await fetch("http://localhost:3000/api/estacao", {
+      const response = await fetchWithAuth("http://localhost:3000/api/estacao", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dadosEstacao), // Envia os dados no formato JSON
+        body: JSON.stringify(dadosEstacao),
       });
 
       if (response.ok) {

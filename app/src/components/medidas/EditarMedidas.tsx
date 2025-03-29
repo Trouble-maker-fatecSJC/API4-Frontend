@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Aside from '../shared/aside/Aside';
 import { useNavigate, useParams } from 'react-router-dom';
+import { fetchWithAuth } from '../../services/api';
 import Medidas from '../../model/Medidas';
-
 
 export default function EditarMedida() {
     const navigate = useNavigate();
@@ -16,16 +16,10 @@ export default function EditarMedida() {
 
         async function fetchMedida() {
             try {
-                const response = await fetch(`http://localhost:3000/api/medidas/${idEdicao}`);
-                if (response.ok) {
-                    const data: Medidas = await response.json();
-                    setId(data.id_medida); // Atribuindo o id_medida à variável id
-                    setValor(data.valor);
-                    setUnixTime(data.unix_time);
-                } else {
-                    alert('Medida não encontrada');
-                    navigate('/medidas');
-                }
+                const data: Medidas = await fetchWithAuth(`http://localhost:3000/api/medidas/${idEdicao}`);
+                setId(data.id_medida); // Atribuindo o id_medida à variável id
+                setValor(data.valor);
+                setUnixTime(data.unix_time);
             } catch (error) {
                 alert('Erro ao buscar medida');
                 console.error(error);
@@ -49,18 +43,16 @@ export default function EditarMedida() {
         const medidaAtualizada = { valor, unix_time };
 
         try {
-            // Usando id como id_medida para a atualização
-            const response = await fetch(`http://localhost:3000/api/medidas/${id}`, {
+            const response = await fetchWithAuth(`http://localhost:3000/api/medidas/${id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(medidaAtualizada),
             });
 
-            const responseData = await response.json();
             if (response.ok) {
                 alert('Medida atualizada com sucesso!');
                 navigate('/medidas');
             } else {
+                const responseData = await response.json();
                 alert(`Erro ao atualizar medida: ${responseData.message || "Erro desconhecido"}`);
             }
         } catch (error) {

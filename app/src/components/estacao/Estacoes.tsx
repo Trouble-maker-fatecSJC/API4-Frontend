@@ -3,6 +3,7 @@ import DetalheEstacao from "./DetalheEstacao"; // Importando o componente de det
 import Estacao from "../../model/Estacao";
 import Aside from "../shared/aside/Aside";
 import Container from "../shared/Container";
+import { fetchWithAuth } from "../../services/api";
 import "./style.css";
 
 export default function Estacoes() {
@@ -16,13 +17,8 @@ export default function Estacoes() {
     // Função para buscar as estações da API
     const fetchEstacoes = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/estacoes"); // URL para buscar as estações
-        if (response.ok) {
-          const data = await response.json();
-          setEstacoes(data);
-        } else {
-          alert("Erro ao carregar as estações");
-        }
+        const data = await fetchWithAuth("http://localhost:3000/api/estacoes");
+        setEstacoes(data);
       } catch (error) {
         console.error("Erro ao buscar as estações:", error);
         alert("Erro ao conectar com o servidor");
@@ -46,16 +42,12 @@ export default function Estacoes() {
   // Função para deletar uma estação
   const deletarEstacao = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/estacoes/${id}`, {
+      await fetchWithAuth(`http://localhost:3000/api/estacoes/${id}`, {
         method: "DELETE",
       });
 
-      if (response.ok) {
-        setEstacoes(estacoes.filter((estacao) => estacao.id_estacao !== id));
-        alert("Estação deletada com sucesso");
-      } else {
-        alert("Erro ao deletar a estação");
-      }
+      setEstacoes(estacoes.filter((estacao) => estacao.id_estacao !== id));
+      alert("Estação deletada com sucesso");
     } catch (error) {
       console.error("Erro ao deletar a estação:", error);
       alert("Erro ao conectar com o servidor");

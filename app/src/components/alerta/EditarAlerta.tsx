@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Alerta from "../../model/Alerta";
 import TipoAlerta from "../../model/TipoAlerta";
+import { fetchWithAuth } from "../../services/api";
 
 export default function EditarAlerta() {
   const [alerta, setAlerta] = useState<Alerta | null>(null);
@@ -15,8 +16,7 @@ export default function EditarAlerta() {
   useEffect(() => {
     const fetchTiposAlerta = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/tipoalerta");
-        const data = await response.json();
+        const data = await fetchWithAuth("http://localhost:3000/api/tipoalerta");
         setTiposAlerta(data);
       } catch (error) {
         console.error("Erro ao buscar tipos de alerta:", error);
@@ -27,17 +27,12 @@ export default function EditarAlerta() {
       if (!id) return;
 
       try {
-        const response = await fetch(`http://localhost:3000/api/alerta/${id}`);
-        if (response.ok) {
-          const data: Alerta = await response.json();
-          setAlerta(data);
-          setDataAlerta(new Date(data.data_alerta).toISOString().slice(0, 16)); // Formato compatível com datetime-local
-          setIdTipoAlerta(data.tipo_alerta);
-        } else {
-          console.error("Erro ao buscar o alerta:", response.statusText);
-        }
+        const data: Alerta = await fetchWithAuth(`http://localhost:3000/api/alerta/${id}`);
+        setAlerta(data);
+        setDataAlerta(new Date(data.data_alerta).toISOString().slice(0, 16)); // Formato compatível com datetime-local
+        setIdTipoAlerta(data.tipo_alerta);
       } catch (error) {
-        console.error("Erro ao conectar com o servidor:", error);
+        console.error("Erro ao buscar o alerta:", error);
       }
     };
 
@@ -61,11 +56,8 @@ export default function EditarAlerta() {
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/api/alerta/${id}`, {
+      const response = await fetchWithAuth(`http://localhost:3000/api/alerta/${id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(novoAlerta),
       });
 

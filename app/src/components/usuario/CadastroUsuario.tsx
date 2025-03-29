@@ -1,55 +1,55 @@
-import React, { useState } from 'react';
-// import Header from '../header/Header';
-import Aside from '../shared/aside/Aside';
+import React, { useState } from "react";
+import { fetchWithAuth } from "../../services/api";
+// Importa o contexto de autenticação
+import Aside from "../shared/aside/Aside";
+
 
 export default function CadastroUsuario() {
 
-    const [cpf, setCpf] = useState('');
-    const [email, setEmail] = useState('');
-    const [nome, setNome] = useState('');
-    const [senha, setSenha] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [tipo, setTipo] = useState(0);
+  const [cpf, setCpf] = useState("");
+  const [email, setEmail] = useState("");
+  const [nome, setNome] = useState("");
+  const [senha, setSenha] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [tipo, setTipo] = useState(0);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-    
-        const usuario = {
-          cpf: cpf,
-          email: email,
-          nome: nome,
-          senha: senha,
-          telefone: telefone,
-          tipo: tipo,
-        };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        console.log("Dados enviados:", usuario);
-
-        try {
-          const response = await fetch('http://localhost:3000/api/usuarios', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(usuario),
-          });
-    
-          if (response.ok) {
-            alert('Usuário cadastrado com sucesso!');
-            setCpf('');
-            setEmail('');
-            setNome('');
-            setSenha('');
-            setTelefone('');
-            setTipo(0);
-          } else {
-            alert('Erro ao cadastrar o usuário');
-          }
-        } catch (error) {
-          alert('Erro ao conectar com o servidor');
-          console.error(error);
-        }
+    const usuario = {
+      cpf: cpf,
+      email: email,
+      nome: nome,
+      senha: senha,
+      telefone: telefone,
+      tipo: tipo,
     };
+
+    console.log("Dados enviados:", usuario);
+
+    try {
+      const response = await fetchWithAuth("http://localhost:3000/api/usuarios", {
+        method: "POST",
+        body: JSON.stringify(usuario),
+      });
+
+      if (response.ok) {
+        alert("Usuário cadastrado com sucesso!");
+        setCpf("");
+        setEmail("");
+        setNome("");
+        setSenha("");
+        setTelefone("");
+        setTipo(0);
+      } else {
+        alert("Erro ao cadastrar o usuário.");
+      }
+    } catch (error) {
+      alert("Erro ao conectar com o servidor.");
+      console.error(error);
+    }
+  };
+
 
   return (
     <>
@@ -74,10 +74,10 @@ export default function CadastroUsuario() {
             />
           </div>
 
-          {/* Campo cpf */}
+          {/* Campo CPF */}
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" htmlFor="cpf">
-              Cpf
+              CPF
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -89,7 +89,7 @@ export default function CadastroUsuario() {
             />
           </div>
 
-          {/* Campo email */}
+          {/* Campo Email */}
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
               Email
@@ -104,7 +104,7 @@ export default function CadastroUsuario() {
             />
           </div>
 
-          {/* Campo senha */}
+          {/* Campo Senha */}
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" htmlFor="senha">
               Senha
@@ -119,10 +119,10 @@ export default function CadastroUsuario() {
             />
           </div>
 
-          {/* Campo telefone */}
+          {/* Campo Telefone */}
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" htmlFor="telefone">
-              Telefone
+                      Telefone
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -133,22 +133,22 @@ export default function CadastroUsuario() {
               onChange={(e) => setTelefone(e.target.value)}
             />
           </div>
-        
-          {/* Campo tipo */}
+
+          {/* Campo Tipo */}
           <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2" htmlFor="tipo">
-                Tipo
-                </label>
-                <select
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                value={tipo}
-                onChange={(e) => setTipo(Number(e.target.value))}
-                >
-                <option value="0">Selecione o tipo</option>
-                <option value="1">Administrador</option>
-                <option value="2">Usuário</option>
-                </select>
-            </div>
+            <label className="block text-gray-700 font-bold mb-2" htmlFor="tipo">
+              Tipo
+            </label>
+            <select
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={tipo}
+              onChange={(e) => setTipo(Number(e.target.value))}
+            >
+              <option value="0">Selecione o tipo</option>
+              <option value="1">Administrador</option>
+              <option value="2">Usuário</option>
+            </select>
+          </div>
 
           {/* Botão para enviar o formulário */}
           <div className="flex items-center justify-center mt-6">

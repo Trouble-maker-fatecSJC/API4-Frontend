@@ -6,6 +6,7 @@ import Parametro from "../../model/Parametro";
 import TipoParametro from "../../model/TipoParametros";
 import Usuario from "../../model/usuario";
 import { useParams, useNavigate } from "react-router-dom";
+import { fetchWithAuth } from "../../services/api";
 
 export default function EditarParametro() {
   const [velocidadeVento, setVelocidadeVento] = useState<number>(0);
@@ -30,18 +31,10 @@ export default function EditarParametro() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resUsuarios = await fetch("http://localhost:3000/api/usuarios");
-        const resTipoParametros = await fetch(
-          "http://localhost:3000/api/tipoparametro"
-        );
-        const resEstacoes = await fetch("http://localhost:3000/api/estacoes");
-        const resMedidas = await fetch("http://localhost:3000/api/medidas");
-
-        const dataUsuarios = await resUsuarios.json();
-        const dataTipoParametros = await resTipoParametros.json();
-        const dataEstacoes = await resEstacoes.json();
-        console.log(dataEstacoes);
-        const dataMedidas = await resMedidas.json();
+        const dataUsuarios = await fetchWithAuth("http://localhost:3000/api/usuarios");
+        const dataTipoParametros = await fetchWithAuth("http://localhost:3000/api/tipoparametro");
+        const dataEstacoes = await fetchWithAuth("http://localhost:3000/api/estacoes");
+        const dataMedidas = await fetchWithAuth("http://localhost:3000/api/medidas");
 
         setUsuarios(dataUsuarios);
         setTipoParametros(dataTipoParametros);
@@ -55,31 +48,25 @@ export default function EditarParametro() {
     fetchData();
   }, []);
 
-
   useEffect(() => {
     const fetchParametro = async () => {
       if (!id) return; // Verifica se o id_parametro está disponível
   
       try {
-        const response = await fetch(`http://localhost:3000/api/parametro/${id}`);
-        if (response.ok) {
-          const data = await response.json();
+        const data = await fetchWithAuth(`http://localhost:3000/api/parametro/${id}`);
   
-          // Atualiza os estados com os dados do parâmetro
-          setVelocidadeVento(data.velocidade_vento || 0);
-          setDirecaoVento(data.direcao_vento || 0);
-          setTemperatura(data.temperatura || 0);
-          setUmidade(data.umidade || 0);
-          setChuva(data.chuva || 0);
-          setCpfUsuario(data.cpf_usuario || "");
-          setTipoParametro(data.id_tipo_parametro || "");
-          setIdEstacao(data.id_estacao?.toString() || "");
-          setIdMedida(data.id_medida?.toString() || "");
-        } else {
-          console.error("Erro ao buscar o parâmetro:", response.statusText);
-        }
+        // Atualiza os estados com os dados do parâmetro
+        setVelocidadeVento(data.velocidade_vento || 0);
+        setDirecaoVento(data.direcao_vento || 0);
+        setTemperatura(data.temperatura || 0);
+        setUmidade(data.umidade || 0);
+        setChuva(data.chuva || 0);
+        setCpfUsuario(data.cpf_usuario || "");
+        setTipoParametro(data.id_tipo_parametro || "");
+        setIdEstacao(data.id_estacao?.toString() || "");
+        setIdMedida(data.id_medida?.toString() || "");
       } catch (error) {
-        console.error("Erro ao conectar com o servidor:", error);
+        console.error("Erro ao buscar o parâmetro:", error);
       }
     };
   
@@ -108,13 +95,10 @@ export default function EditarParametro() {
     console.log("Enviando dados:", novoParametro);
 
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `http://localhost:3000/api/parametro/${idParametro}`,
         {
           method: "PUT", // Mudando para PUT
-          headers: {
-            "Content-Type": "application/json",
-          },
           body: JSON.stringify(novoParametro),
         }
       );

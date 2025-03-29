@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Alerta from "../../model/Alerta";
+import { fetchWithAuth } from "../../services/api";
 
 export default function Alertas() {
   const [alertas, setAlertas] = useState<Alerta[]>([]);
@@ -9,13 +10,7 @@ export default function Alertas() {
   useEffect(() => {
     const fetchAlertas = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/alerta");
-
-        if (!response.ok) {
-          throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
-        }
-
-        const data: Alerta[] = await response.json();
+        const data: Alerta[] = await fetchWithAuth("http://localhost:3000/api/alerta");
         setAlertas(data);
       } catch (error) {
         console.error("Erro ao buscar alertas:", error);
@@ -25,29 +20,21 @@ export default function Alertas() {
     fetchAlertas();
   }, []);
 
-  // Função para navegar para a página de edição
   const handleEditar = (id: number) => {
     navigate(`/editaralerta/${id}`);
   };
 
-  // Função para deletar o alerta com confirmação
   const handleExcluir = async (id: number) => {
     if (window.confirm("Deseja realmente excluir esse alerta?")) {
       try {
-        const response = await fetch(`http://localhost:3000/api/alerta/${id}`, {
+        await fetchWithAuth(`http://localhost:3000/api/alerta/${id}`, {
           method: "DELETE",
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          console.error("Erro ao excluir alerta:", errorData);
-          alert("Erro ao excluir o alerta.");
-        } else {
-          alert("Alerta excluído com sucesso!");
-          setAlertas((prevAlertas) =>
-            prevAlertas.filter((alerta) => alerta.id_alerta !== id)
-          );
-        }
+        setAlertas((prevAlertas) =>
+          prevAlertas.filter((alerta) => alerta.id_alerta !== id)
+        );
+        alert("Alerta excluído com sucesso!");
       } catch (error) {
         console.error("Erro ao excluir o alerta:", error);
         alert("Erro ao excluir o alerta.");
@@ -66,7 +53,6 @@ export default function Alertas() {
             <p><strong>ID do Tipo de Alerta:</strong> {alerta.tipoAlerta.id_tipo_alerta}</p>
           </div>
 
-          {/* Botões de Editar e Excluir */}
           <div style={{ display: "flex", justifyContent: "flex-start", marginTop: "10px", gap: "10px" }}>
             <button
               onClick={() => handleEditar(alerta.id_alerta!)}

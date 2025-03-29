@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Aside from "../shared/aside/Aside";
+import { fetchWithAuth } from "../../services/api";
 
 export default function CadastroMedidas() {
   const [valor, setValor] = useState("");
@@ -16,11 +17,8 @@ export default function CadastroMedidas() {
     console.log("Dados enviados:", medida);
 
     try {
-      const response = await fetch("http://localhost:3000/api/medidas", {
+      const response = await fetchWithAuth("http://localhost:3000/api/medidas", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(medida),
       });
 

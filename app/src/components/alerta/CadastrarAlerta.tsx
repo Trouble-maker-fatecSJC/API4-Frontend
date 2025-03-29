@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Aside from "../shared/aside/Aside";
 import TipoAlerta from "../../model/TipoAlerta";
+import { fetchWithAuth } from "../../services/api";
 
 export default function CadastrarAlerta() {
   const [dataAlerta, setDataAlerta] = useState<string>("");
@@ -10,8 +11,7 @@ export default function CadastrarAlerta() {
   useEffect(() => {
     const fetchTiposAlerta = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/tipoalerta");
-        const data = await response.json();
+        const data = await fetchWithAuth("http://localhost:3000/api/tipoalerta");
         setTiposAlerta(data);
       } catch (error) {
         console.error("Erro ao buscar tipos de alerta:", error);
@@ -35,17 +35,14 @@ export default function CadastrarAlerta() {
 
     const novoAlerta = {
       data_alerta: new Date(dataAlerta).toISOString(),
-      tipoAlerta: { id_tipo_alerta: Number(tipoAlerta) }, // Ajuste no formato do campo tipoAlerta
+      tipoAlerta: { id_tipo_alerta: Number(tipoAlerta) },
     };
 
     console.log("Enviando dados:", novoAlerta);
 
     try {
-      const response = await fetch("http://localhost:3000/api/alerta", {
+      const response = await fetchWithAuth("http://localhost:3000/api/alerta", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(novoAlerta),
       });
 

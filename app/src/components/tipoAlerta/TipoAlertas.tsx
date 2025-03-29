@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TipoAlerta from "../../model/TipoAlertas";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { fetchWithAuth } from "../../services/api";
 
 export default function TipoAlertas() {
   const [tipoAlertas, setTipoAlertas] = useState<TipoAlerta[]>([]);
@@ -11,13 +12,7 @@ export default function TipoAlertas() {
   useEffect(() => {
     const fetchTipoAlertas = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/tipoalerta");
-
-        if (!response.ok) {
-          throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
-        }
-
-        const data: TipoAlerta[] = await response.json();
+        const data: TipoAlerta[] = await fetchWithAuth("http://localhost:3000/api/tipoalerta");
         setTipoAlertas(data);
       } catch (error) {
         console.error("Erro ao buscar tipos de alertas:", error);
@@ -36,20 +31,14 @@ export default function TipoAlertas() {
   const handleExcluir = async (id: number) => {
     if (window.confirm("Deseja realmente excluir esse tipo de alerta?")) {
       try {
-        const response = await fetch(`http://localhost:3000/api/tipoalerta/${id}`, {
+        await fetchWithAuth(`http://localhost:3000/api/tipoalerta/${id}`, {
           method: "DELETE",
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          console.error("Erro ao excluir tipo de alerta:", errorData);
-          alert("Erro ao excluir o tipo de alerta.");
-        } else {
-          alert("Tipo de alerta excluído com sucesso!");
-          setTipoAlertas((prevTipoAlertas) =>
-            prevTipoAlertas.filter((tipoAlerta) => tipoAlerta.id_tipo_alerta !== id)
-          );
-        }
+        setTipoAlertas((prevTipoAlertas) =>
+          prevTipoAlertas.filter((tipoAlerta) => tipoAlerta.id_tipo_alerta !== id)
+        );
+        alert("Tipo de alerta excluído com sucesso!");
       } catch (error) {
         console.error("Erro ao excluir o tipo de alerta:", error);
         alert("Erro ao excluir o tipo de alerta.");
