@@ -33,6 +33,8 @@ export default function Medida() {
       try {
         await fetchWithAuth(`http://localhost:3000/api/medidas/${id}`, { method: "DELETE" });
         setMedidas(medidas.filter((medida) => medida.id_medida !== id));
+        alert("Medida excluída com sucesso!");
+        window.location.reload();
       } catch (error) {
         console.error("Erro ao excluir medida:", error);
       }

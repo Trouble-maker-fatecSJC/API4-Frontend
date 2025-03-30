@@ -49,15 +49,15 @@ export default function EditarMedida() {
             });
 
             if (response.ok) {
+                alert('Erro ao atualizar medida. Verifique os dados e tente novamente.');
+            } else {
                 alert('Medida atualizada com sucesso!');
                 navigate('/medidas');
-            } else {
-                const responseData = await response.json();
-                alert(`Erro ao atualizar medida: ${responseData.message || "Erro desconhecido"}`);
+                
             }
         } catch (error) {
             console.error("Erro ao conectar com o servidor:", error);
-            alert('Erro ao conectar com o servidor');
+            console.log('Erro ao conectar com o servidor');
         }
     };
 

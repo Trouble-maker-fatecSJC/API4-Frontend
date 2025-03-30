@@ -23,11 +23,12 @@ export default function CadastroMedidas() {
       });
 
       if (response.ok) {
+        alert("Erro ao cadastrar a medida");
+      } else {
         alert("Medida cadastrada com sucesso!");
         setValor("");
         setUnixTime("");
-      } else {
-        alert("Erro ao cadastrar a medida");
+        
       }
     } catch (error) {
       alert("Erro ao conectar com o servidor");

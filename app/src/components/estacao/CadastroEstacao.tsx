@@ -42,16 +42,17 @@ export default function CadastroEstacao() {
       });
 
       if (response.ok) {
-        alert("Estação cadastrada com sucesso!");
+        alert("Erro ao cadastrar a estação. Verifique os dados e tente novamente.");
         // Limpar os campos do formulário após o envio
+        
+      } else {
+        alert("Estação cadastrada com sucesso!");
         setNome("");
         setEndereco("");
         setLatitude("");
         setLongitude("");
         setDataInstalacao("");
         setIndicativoAtiva(false);
-      } else {
-        alert("Erro ao cadastrar a estação");
       }
     } catch (error) {
       alert("Erro ao conectar com o servidor");

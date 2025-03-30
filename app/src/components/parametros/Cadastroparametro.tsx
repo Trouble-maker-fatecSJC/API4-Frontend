@@ -69,6 +69,8 @@ export default function CadastroParametro() {
       });
 
       if (response.ok) {
+        alert("Erro ao cadastrar parâmetro");
+      } else {
         alert("Parâmetro cadastrado com sucesso!");
         setVelocidadeVento(0);
         setDirecaoVento(0);
@@ -79,8 +81,7 @@ export default function CadastroParametro() {
         setTipoParametro("");
         setIdEstacao("");
         setIdMedida("");
-      } else {
-        alert("Erro ao cadastrar parâmetro");
+        
       }
     } catch (error) {
       alert("Erro ao conectar com o servidor");

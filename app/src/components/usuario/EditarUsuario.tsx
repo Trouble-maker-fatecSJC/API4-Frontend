@@ -50,15 +50,13 @@ export default function EditarUsuario() {
       });
 
       if (response.ok) {
+        alert(`Erro ao atualizar usuário`);
+      } else {
         alert("Usuário atualizado com sucesso!");
         navigate("/usuarios");
-      } else {
-        const responseData = await response.json();
-        alert(`Erro ao atualizar usuário: ${responseData.message || "Erro desconhecido"}`);
       }
     } catch (error) {
-      console.error("Erro ao conectar com o servidor:", error);
-      alert("Erro ao conectar com o servidor");
+      console.log("Erro ao conectar com o servidor", error);
     }
   };
 

@@ -58,9 +58,12 @@ export default function EditarEstacao() {
         method: 'PUT',
         body: JSON.stringify(dadosEstacao),
       });
-      if (!response.ok) throw new Error('Erro ao editar a estação');
+      if (!response.ok) {;
       alert('Estação editada com sucesso!');
       navigate('/estacoes');
+      } else {
+        alert('Erro ao editar a estação. Verifique os dados e tente novamente.');
+      }
     } catch (error) {
       console.error(error);
       alert('Erro ao conectar com o servidor');

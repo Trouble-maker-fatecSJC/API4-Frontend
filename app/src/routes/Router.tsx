@@ -26,6 +26,8 @@ import CadastrarAlerta from "../components/alerta/CadastrarAlerta";
 import Alertas from "../components/alerta/Alertas";
 import EditarAlerta from "../components/alerta/EditarAlerta";
 import { ComponentType } from "react";
+import PaginaPrincipal from "../pages/paginaPrincipal/paginaprincipal"; // Import the PaginaPrincipal component
+
 
 // Componente para proteger rotas
 const ProtectedRoute = ({
@@ -46,9 +48,16 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/adm" element={<AdmHome />} />
+      
+      {/* Rota pública */}
+      <Route
+        path="/pagina-principal"
+        element={<ProtectedRoute component={PaginaPrincipal} />}
+      />
 
       {/* Rotas protegidas */}
-      <Route path="/adm" element={<ProtectedRoute component={AdmHome} />} />
+      
       <Route path="/estacoes" element={<ProtectedRoute component={Estacoes} />} />
       <Route
         path="/cadastroestacao"
@@ -76,10 +85,8 @@ export default function AppRoutes() {
         path="/editarmedida/:idEdicao"
         element={<ProtectedRoute component={EditarMedida} />}
       />
-      <Route
-        path="/tipoparametro"
-        element={<ProtectedRoute component={TipoParametros} />}
-      />
+      <Route path="/tipoparametros" element={<ProtectedRoute component={TipoParametros} />} />
+
       <Route
         path="/cadastrotipoparametro"
         element={<ProtectedRoute component={CadastroTipoParametro} />}

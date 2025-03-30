@@ -57,6 +57,7 @@ export default function Usuarios() {
                   <th className="py-2 px-4 border">Email</th>
                   <th className="py-2 px-4 border">Telefone</th>
                   <th className="py-2 px-4 border">Tipo</th>
+                  <th className="py-2 px-4 border">Ações</th> {/* Adicionado título "Ações" */}
                 </tr>
               </thead>
               <tbody>

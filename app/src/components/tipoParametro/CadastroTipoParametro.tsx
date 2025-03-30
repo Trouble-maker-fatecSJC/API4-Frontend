@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Aside from "../shared/aside/Aside";
+import { fetchWithAuth } from "../../services/api";
 
 export default function CadastroTipoParametro() {
     const [jsonParam, setJsonParam] = useState("");
@@ -22,7 +23,7 @@ export default function CadastroTipoParametro() {
     console.log("Dados enviados:", TipoParametro);
 
     try {
-      const response = await fetch("http://localhost:3000/api/tipoparametro", {
+      const response = await fetchWithAuth("http://localhost:3000/api/tipoparametro", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,14 +32,15 @@ export default function CadastroTipoParametro() {
       });
 
       if (response.ok) {
+        alert("Erro ao cadastrar o TipoParametro");
+      } else {
         alert("TipoParametro cadastrado com sucesso!");
         setJsonParam("");
         setNome("");
         setUnidade("");
         setQtd("");
         setFator("");
-      } else {
-        alert("Erro ao cadastrar o TipoParametro");
+        
       }
     } catch (error) {
       alert("Erro ao conectar com o servidor");

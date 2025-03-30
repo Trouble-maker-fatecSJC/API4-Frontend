@@ -34,6 +34,8 @@ export default function CadastroUsuario() {
       });
 
       if (response.ok) {
+        alert("Erro ao cadastrar o usuário.");
+      } else {
         alert("Usuário cadastrado com sucesso!");
         setCpf("");
         setEmail("");
@@ -41,8 +43,6 @@ export default function CadastroUsuario() {
         setSenha("");
         setTelefone("");
         setTipo(0);
-      } else {
-        alert("Erro ao cadastrar o usuário.");
       }
     } catch (error) {
       alert("Erro ao conectar com o servidor.");

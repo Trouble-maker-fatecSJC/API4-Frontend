@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Parametro from "../../model/Parametro";
 import { fetchWithAuth } from "../../services/api";
+import Aside from "../shared/aside/Aside";
 
 export default function EditarTipoAlerta() {
   const [nome, setNome] = useState<string>("");
@@ -78,16 +79,16 @@ export default function EditarTipoAlerta() {
       );
 
       if (response.ok) {
+        console.log("Erro ao atualizar tipo de alerta");
+      } else {
         alert("Tipo de alerta atualizado com sucesso!");
         navigate("/tipoalertas");
-      } else {
-        const errorData = await response.json();
-        console.error("Erro ao atualizar tipo de alerta:", errorData);
-        alert("Erro ao atualizar tipo de alerta");
+       
+        
+        
       }
     } catch (error) {
-      console.error("Erro ao conectar com o servidor:", error);
-      alert("Erro ao conectar com o servidor");
+      console.log("Erro ao conectar com o servidor:", error);
     }
   };
 
@@ -96,6 +97,8 @@ export default function EditarTipoAlerta() {
   };
 
   return (
+    <>
+    <Aside />
     <div className="max-w-md mx-auto mt-10 p-4 bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
         Edição de Tipo de Alerta
@@ -170,6 +173,7 @@ export default function EditarTipoAlerta() {
         </div>
       </form>
     </div>
+    </>
   );
 }
 

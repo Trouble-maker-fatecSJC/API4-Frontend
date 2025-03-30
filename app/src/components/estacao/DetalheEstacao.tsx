@@ -31,12 +31,22 @@ export default function DetalheEstacao({
 
   const handleDeleteEstacao = async () => {
     try {
-      await fetchWithAuth(`http://localhost:3000/api/estacoes/${estacao.id_estacao}`, {
+      const response = await fetchWithAuth(`http://localhost:3000/api/estacoes/${estacao.id_estacao}`, {
         method: "DELETE",
       });
-      onDeleteEstacao(estacao.id_estacao);
+
+      console.log("Resposta recebida:", response);
+
+      if (response && response.message === "Estação deletada com sucesso") {
+        alert(response.message); // Use the message from the response
+        window.location.reload(); // Recarrega a página após a exclusão
+      } else {
+        alert("Erro ao deletar a estação. Tente novamente.");
+      }
     } catch (error) {
-      console.error("Erro ao deletar estação:", error);
+      const errorMessage = error instanceof Error ? error.message : "Erro desconhecido";
+      console.log(`Erro ao conectar com o servidor: ${errorMessage}`);
+      console.error(error);
     }
     setDeleteModalOpen(false);
   };

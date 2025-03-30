@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Aside from '../shared/aside/Aside';
 import { useNavigate, useParams } from 'react-router-dom';
 import TipoParametro from '../../model/TipoParametros';
+import { fetchWithAuth } from '../../services/api';
 
 export default function EditarTipoParametro() {
     const navigate = useNavigate();
     const { idEdicao } = useParams(); // Usando o hook useParams para pegar o ID da URL
-    const [id, setId] = useState<number | null>(null);  // Variável para armazenar id_medida
+    const [id, setId] = useState<number | null>(null); 
     const [json_param, setJsonParam] = useState<string>('');
     const [nome, setNome] = useState<string>('');
     const [unidade, setUnidade] = useState<string>('');
@@ -15,25 +16,22 @@ export default function EditarTipoParametro() {
 
     useEffect(() => {
         if (!idEdicao) return;
+
         async function fetchTipoParametro() {
             try {
-                const response = await fetch(`http://localhost:3000/api/tipoparametro/${idEdicao}`);
-                if (response.ok) {
-                    const data: TipoParametro = await response.json();
+                    const data: TipoParametro = await fetchWithAuth(`http://localhost:3000/api/tipoparametro/${idEdicao}`);
                     setId(data.id_tipo_param);
                     setNome(data.nome);
                     setJsonParam(data.json_param);
                     setUnidade(data.unidade);
                     setQtdCasaDec(data.qtd_casadesc);
                     setFator(data.fator);
-                } else {
-                    alert('Tipo do parametro não encontrado');
-                    navigate('/tipoparametro');
-                }
+
+                
             } catch (error) {
-                alert('Erro ao buscar tipo do parametro');
+                console.log('Erro ao buscar tipo do parametro');
                 console.error(error);
-                navigate('/tipoparametro');
+                
             }
         }
 
@@ -47,22 +45,24 @@ export default function EditarTipoParametro() {
 
         try {
             // Usando id como id_medida para a atualização
-            const response = await fetch(`http://localhost:3000/api/tipoparametro/${id}`, {
+            const response = await fetchWithAuth(`http://localhost:3000/api/tipoparametro/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(tipoParametroAtualizado),
             });
 
-            const responseData = await response.json();
+            
             if (response.ok) {
+                
+                alert(`Erro ao atualizar tipo do parametro`)
+;            } else {
                 alert('Tipo do parametro atualizado com sucesso!');
-                navigate('/tipoparametro');
-            } else {
-                alert(`Erro ao atualizar tipo do parametro: ${responseData.message || "Erro desconhecido"}`);
+                navigate('/tipoparametros');
+               
             }
         } catch (error) {
-            console.error("Erro ao conectar com o servidor:", error);
-            alert('Erro ao conectar com o servidor');
+           
+            console.log('Erro ao conectar com o servidor', error);
         }
     };
 

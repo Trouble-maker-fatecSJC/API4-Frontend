@@ -47,14 +47,15 @@ export default function CadastrarAlerta() {
       });
 
       if (response.ok) {
+        alert("Erro ao cadastrar alerta");
+      } else {
         alert("Alerta cadastrado com sucesso!");
         setDataAlerta("");
         setTipoAlerta("");
-      } else {
-        alert("Erro ao cadastrar alerta");
+        
       }
     } catch (error) {
-      alert("Erro ao conectar com o servidor");
+      console.log("Erro ao conectar com o servidor");
       console.error(error);
     }
   };

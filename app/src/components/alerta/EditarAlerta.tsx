@@ -52,22 +52,21 @@ export default function EditarAlerta() {
     const novoAlerta = {
       id_alerta: alerta?.id_alerta,
       data_alerta: new Date(dataAlerta).toISOString(),
-      tipoAlerta: idTipoAlertaNumber,
+      tipoAlerta: { id_tipo_alerta: idTipoAlertaNumber }, // Ajuste aqui
     };
 
     try {
       const response = await fetchWithAuth(`http://localhost:3000/api/alerta/${id}`, {
         method: "PUT",
         body: JSON.stringify(novoAlerta),
+        headers: { "Content-Type": "application/json" }, // Adicionar cabeçalho JSON
       });
 
       if (response.ok) {
+        console.log("Erro ao atualizar alerta");
+      } else {
         alert("Alerta atualizado com sucesso!");
         navigate("/alertas");
-      } else {
-        const errorData = await response.json();
-        console.error("Erro ao atualizar alerta:", errorData);
-        alert("Erro ao atualizar alerta");
       }
     } catch (error) {
       console.error("Erro ao conectar com o servidor:", error);

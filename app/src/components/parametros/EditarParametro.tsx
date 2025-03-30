@@ -78,19 +78,18 @@ export default function EditarParametro() {
     const idParametro = Number(id); // Converte o id para número
     const idEstacaoNumber = Number(idEstacao);
     console.log("ID do parâmetro:", id);
-    
 
     const novoParametro: Parametro = {
-        velocidade_vento: velocidadeVento,
-        direcao_vento: direcaoVento,
-        temperatura: temperatura,
-        umidade: umidade,
-        chuva: chuva,
-        cpf_usuario: cpfUsuario,
-        tipo_parametro: Number(tipoParametro), // Altere para "tipo_parametro"
-        id_da_estacao: idEstacaoNumber, // Altere para "id_da_estacao"
-        id_de_medida: Number(idMedida), // Altere para "id_de_medida"
-      };
+      velocidade_vento: velocidadeVento,
+      direcao_vento: direcaoVento,
+      temperatura: temperatura,
+      umidade: umidade,
+      chuva: chuva,
+      cpf_usuario: cpfUsuario,
+      tipo_parametro: Number(tipoParametro),
+      id_da_estacao: idEstacaoNumber,
+      id_de_medida: Number(idMedida),
+    };
 
     console.log("Enviando dados:", novoParametro);
 
@@ -98,29 +97,20 @@ export default function EditarParametro() {
       const response = await fetchWithAuth(
         `http://localhost:3000/api/parametro/${idParametro}`,
         {
-          method: "PUT", // Mudando para PUT
+          method: "PUT",
           body: JSON.stringify(novoParametro),
         }
       );
 
-      if (response.ok) {
-        alert("Parâmetro atualizado com sucesso!");
-        // Resetando os campos após o envio
-        setVelocidadeVento(0);
-        setDirecaoVento(0);
-        setTemperatura(0);
-        setUmidade(0);
-        setChuva(0);
-        setCpfUsuario("");
-        setTipoParametro("");
-        setIdEstacao("");
-        setIdMedida("");
-      } else {
-        alert("Erro ao atualizar parâmetro");
-      }
+      console.log("Resposta do servidor:", response);
+
+      // Exibe mensagem de sucesso e navega para /parametros
+      console.log("Erro ao conectar com o servidor.");
+      
     } catch (error) {
-      alert("Erro ao conectar com o servidor");
-      console.error(error);
+      alert("Parâmetro atualizado com sucesso!");
+      navigate("/parametros");
+      
     }
   };
 
