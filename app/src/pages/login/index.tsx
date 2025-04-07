@@ -33,7 +33,19 @@ export default function Login() {
                 console.log("Token recebido:", data.token); // Verificar se o token está sendo retornado
                 localStorage.setItem("token", data.token); // Salvar token no localStorage
                 alert("Login realizado com sucesso!");
-                navigate("/pagina-principal"); // Redirecionar para PaginaPrincipal
+
+                // Converte o tipo para número, caso esteja vindo como string
+                const userType = Number(data.tipo);
+
+                // Verifica o tipo do usuário e redireciona para a página apropriada
+                if (userType === 2) {
+                    navigate("/pagina-teste"); // Redireciona para a página 'teste'
+                } else if (userType === 1) {
+                    navigate("/pagina-principal"); // Redireciona para a página principal
+                } else {
+                    console.error("Tipo de usuário desconhecido:", userType);
+                    alert("Erro: Tipo de usuário desconhecido.");
+                }
             } else {
                 console.log("Erro ao fazer login:", data.error); // Log para erro de login
                 alert(data.error || "Erro ao fazer login");
