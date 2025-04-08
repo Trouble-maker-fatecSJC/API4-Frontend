@@ -14,6 +14,8 @@ export default function CadastroMedidas() {
     const medida = {
       valor: parseFloat(valor),
       unix_time: unixTime,
+      idEstacao: parseFloat(valor),
+      idParametro: parseFloat(valor),
     };
 
     console.log("Dados enviados:", medida);
@@ -88,7 +90,7 @@ export default function CadastroMedidas() {
               type="number"
               placeholder="Digite o id da estação"
               value={idEstacao}
-              onChange={(e) => setValor(e.target.value)}
+              onChange={(e) => setIdEstacao(e.target.value)}
             />
           </div>
           {/* id parametro */}
@@ -102,7 +104,7 @@ export default function CadastroMedidas() {
               type="number"
               placeholder="Digite o parametro"
               value={idParametro}
-              onChange={(e) => setValor(e.target.value)}
+              onChange={(e) => setIdParametro(e.target.value)}
             />
           </div>
 
