@@ -4,13 +4,14 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 interface User {
   cpf: string;
   email: string;
+  tipo: number; // Adicionado
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (token: string) => void;
+  login: (token: string, tipo: number) => void; // Ajustado para incluir tipo
   logout: () => void;
-  isAuthenticated: () => boolean; // Adicionado
+  isAuthenticated: () => boolean;
 }
 
 // Criando o contexto de autenticação
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         const payload = JSON.parse(atob(token.split(".")[1])); // Decodifica o token JWT
         console.log("Token encontrado no localStorage:", payload);
-        setUser({ cpf: payload.cpf, email: payload.email });
+        setUser({ cpf: payload.cpf, email: payload.email, tipo: payload.tipo }); // Ajustado para incluir tipo
       } catch (error) {
         console.error("Erro ao decodificar o token:", error);
         logout();
@@ -37,12 +38,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   // Função para login
-  const login = (token: string) => {
+  const login = async (token: string, tipo: number) => { // Ajustado para incluir tipo
     try {
       localStorage.setItem("token", token);
       const payload = JSON.parse(atob(token.split(".")[1])); // Decodifica o token JWT
       console.log("Login bem-sucedido. Token armazenado:", payload);
-      setUser({ cpf: payload.cpf, email: payload.email });
+      setUser({ cpf: payload.cpf, email: payload.email, tipo }); // Armazena o tipo no estado do usuário
+
+      // Redireciona o usuário com base no tipo retornado pela API
+      if (tipo === 2) {
+        window.location.href = "/pagina-teste"; // Redireciona para a página 'teste'
+      } else if (tipo === 1) {
+        window.location.href = "/pagina-principal"; // Redireciona para a página principal
+      }
     } catch (error) {
       console.error("Erro ao armazenar o token:", error);
     }

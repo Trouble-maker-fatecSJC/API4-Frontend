@@ -27,6 +27,7 @@ import Alertas from "../components/alerta/Alertas";
 import EditarAlerta from "../components/alerta/EditarAlerta";
 import { ComponentType } from "react";
 import PaginaPrincipal from "../pages/paginaPrincipal/paginaprincipal"; // Import the PaginaPrincipal component
+import PaginaTeste from "../components/usuario/paginaTeste";
 
 
 // Componente para proteger rotas
@@ -55,7 +56,8 @@ export default function AppRoutes() {
         path="/pagina-principal"
         element={<ProtectedRoute component={PaginaPrincipal} />}
       />
-
+      
+      <Route path="/pagina-teste" Component={PaginaTeste}/>
       {/* Rotas protegidas */}
       
       <Route path="/estacoes" element={<ProtectedRoute component={Estacoes} />} />
