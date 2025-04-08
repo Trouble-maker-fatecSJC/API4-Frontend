@@ -10,6 +10,8 @@ export default function EditarMedida() {
     const [id, setId] = useState<number | null>(null);  // Variável para armazenar id_medida
     const [valor, setValor] = useState<number | string>('');
     const [unix_time, setUnixTime] = useState<string>('');
+    const [idEstacao, setIdEstacao] = useState<string>("");
+    const [idParametro, setIdParametro] = useState<string>("");
 
     useEffect(() => {
         if (!idEdicao) return; // Se idEdicao não estiver definido, não faz nada

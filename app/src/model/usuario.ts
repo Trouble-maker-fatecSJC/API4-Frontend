@@ -1,8 +1,7 @@
 export default  interface Usuario {
-    cpf: string,
-    email: string,
-    nome: string,
-    senha: string,
-    telefone: string,
-    tipo: number
+    cpf: string;
+    email: string;
+    senha: string;
+    nome: string;
+    tipo: number;
 }

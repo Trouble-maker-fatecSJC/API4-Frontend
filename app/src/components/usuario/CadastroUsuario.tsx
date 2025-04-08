@@ -10,7 +10,6 @@ export default function CadastroUsuario() {
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
   const [senha, setSenha] = useState("");
-  const [telefone, setTelefone] = useState("");
   const [tipo, setTipo] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,7 +20,6 @@ export default function CadastroUsuario() {
       email: email,
       nome: nome,
       senha: senha,
-      telefone: telefone,
       tipo: tipo,
     };
 
@@ -41,7 +39,6 @@ export default function CadastroUsuario() {
         setEmail("");
         setNome("");
         setSenha("");
-        setTelefone("");
         setTipo(0);
       }
     } catch (error) {
@@ -116,21 +113,6 @@ export default function CadastroUsuario() {
               placeholder="Senha"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
-            />
-          </div>
-
-          {/* Campo Telefone */}
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="telefone">
-                      Telefone
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="telefone"
-              type="text"
-              placeholder="telefone"
-              value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
             />
           </div>
 

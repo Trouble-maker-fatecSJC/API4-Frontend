@@ -65,7 +65,6 @@ export default function Usuarios() {
                   <tr key={usuario.cpf} className="border-b dark:border-gray-700">
                     <td className="py-2 px-4 border">{usuario.nome}</td>
                     <td className="py-2 px-4 border">{usuario.email}</td>
-                    <td className="py-2 px-4 border">{usuario.telefone}</td>
                     <td className="py-2 px-4 border">
                       {usuario.tipo === 1 ? "Administrador" : "Usuário"}
                     </td>

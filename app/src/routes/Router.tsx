@@ -15,7 +15,7 @@ import EditarMedida from "../components/medidas/EditarMedidas";
 import CadastroTipoParametro from "../components/tipoParametro/CadastroTipoParametro";
 import EditarTipoParametro from "../components/tipoParametro/EditarTipoParametro";
 import TipoParametros from "../components/tipoParametro/TipoParametros";
-import CadastroParametro from "../components/parametros/Cadastroparametro";
+// import CadastroParametro from "../components/parametros/Cadastroparametro";
 import EditarEstacao from "../components/estacao/EditarEstacao";
 import Parametros from "../components/parametros/Parametro";
 import EditarParametro from "../components/parametros/EditarParametro";
@@ -95,10 +95,10 @@ export default function AppRoutes() {
         path="/editartipoparametro/:idEdicao"
         element={<ProtectedRoute component={EditarTipoParametro} />}
       />
-      <Route
+      {/* <Route
         path="/cadastroparametro"
         element={<ProtectedRoute component={CadastroParametro} />}
-      />
+      /> */}
       <Route
         path="/parametros"
         element={<ProtectedRoute component={Parametros} />}

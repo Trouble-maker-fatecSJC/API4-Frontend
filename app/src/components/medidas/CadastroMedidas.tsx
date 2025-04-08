@@ -5,6 +5,8 @@ import { fetchWithAuth } from "../../services/api";
 export default function CadastroMedidas() {
   const [valor, setValor] = useState("");
   const [unixTime, setUnixTime] = useState("");
+  const [idEstacao, setIdEstacao] = useState<string>("");
+  const [idParametro, setIdParametro] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,6 +30,8 @@ export default function CadastroMedidas() {
         alert("Medida cadastrada com sucesso!");
         setValor("");
         setUnixTime("");
+        setIdEstacao("");
+        setIdParametro("");
         
       }
     } catch (error) {
@@ -71,6 +75,34 @@ export default function CadastroMedidas() {
               placeholder="Digite o timestamp Unix"
               value={unixTime}
               onChange={(e) => setUnixTime(e.target.value)}
+            />
+          </div>
+        {/* Campo id estação */}
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2" htmlFor="estacao">
+              id estação
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="estacao"
+              type="number"
+              placeholder="Digite o id da estação"
+              value={idEstacao}
+              onChange={(e) => setValor(e.target.value)}
+            />
+          </div>
+          {/* id parametro */}
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2" htmlFor="parametro">
+              Parametro
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="aprametro"
+              type="number"
+              placeholder="Digite o parametro"
+              value={idParametro}
+              onChange={(e) => setValor(e.target.value)}
             />
           </div>
 
