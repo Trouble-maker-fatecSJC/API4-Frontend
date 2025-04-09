@@ -6,6 +6,7 @@ export default function CadastroTipoParametro() {
     const [jsonParam, setJsonParam] = useState("");
     const [nome, setNome] = useState("");
     const [unidade, setUnidade] = useState("");
+    const [offsett, setOffset] = useState("");
     const [qtd_casadesc, setQtd] = useState("");
     const [fator, setFator] = useState("");
 
@@ -16,6 +17,7 @@ export default function CadastroTipoParametro() {
       json_param: jsonParam,
       nome: nome,
         unidade: unidade,
+        offset: offsett,
         qtd_casadesc: qtd_casadesc,
         fator: fator
     };
@@ -96,6 +98,20 @@ export default function CadastroTipoParametro() {
                     placeholder="Digite a unidade do parametro"
                     value={unidade}
                     onChange={(e) => setUnidade(e.target.value)}
+                />
+            </div>
+        {/* Campo offset */}
+        <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2" htmlFor="offset">
+                    offset
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="unidade"
+                    type="text"
+                    placeholder="Digite o offset"
+                    value={offsett}
+                    onChange={(e) => setOffset(e.target.value)}
                 />
             </div>
             {/* Campo Qtd Casa Decimais */}

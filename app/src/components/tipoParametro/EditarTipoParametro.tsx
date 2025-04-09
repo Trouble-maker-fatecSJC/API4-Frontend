@@ -11,6 +11,7 @@ export default function EditarTipoParametro() {
     const [json_param, setJsonParam] = useState<string>('');
     const [nome, setNome] = useState<string>('');
     const [unidade, setUnidade] = useState<string>('');
+    const [offsett, setOffset] = useState("")
     const [qtd_casadec, setQtdCasaDec] = useState<string>('');
     const [fator, setFator] = useState<string>('');
 
@@ -24,6 +25,7 @@ export default function EditarTipoParametro() {
                     setNome(data.nome);
                     setJsonParam(data.json_param);
                     setUnidade(data.unidade);
+                    setOffset(data.offset);
                     setQtdCasaDec(data.qtd_casadesc);
                     setFator(data.fator);
 
@@ -41,7 +43,7 @@ export default function EditarTipoParametro() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const tipoParametroAtualizado = { json_param, nome, unidade, qtd_casadesc: qtd_casadec, fator };
+        const tipoParametroAtualizado = { json_param, nome, unidade, offsett, qtd_casadesc: qtd_casadec, fator };
 
         try {
             // Usando id como id_medida para a atualização
@@ -111,6 +113,16 @@ export default function EditarTipoParametro() {
                             value={unidade}
                             onChange={(e) => setUnidade(e.target.value)}
                             placeholder="Digite a unidade"
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-bold mb-1 sm:mb-2">offset</label>
+                        <input
+                            className="w-full p-2 border rounded bg-gray-100"
+                            type="text"
+                            value={offsett}
+                            onChange={(e) => setOffset(e.target.value)}
+                            placeholder="Digite o offset"
                         />
                     </div>
                     <div className="mb-4">

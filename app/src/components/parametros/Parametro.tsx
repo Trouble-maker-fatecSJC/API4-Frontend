@@ -55,7 +55,7 @@ export default function Parametros() {
           <div key={parametro.id_parametro} style={{ marginBottom: "10px", padding: "10px", border: "1px solid #ddd", borderRadius: "6px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", cursor: "pointer" }} 
                  onClick={() => setExpandido(expandido === parametro.id_parametro! ? null : parametro.id_parametro!)}>
-              <h3>ID: {parametro.id_parametro} - CPF: {parametro.usuario.cpf}</h3>
+              <h3>ID: {parametro.id_parametro}</h3>
               {expandido === parametro.id_parametro! ? <ChevronUp /> : <ChevronDown />}
             </div>
             {expandido === parametro.id_parametro! && (

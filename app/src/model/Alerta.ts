@@ -1,6 +1,9 @@
 export default interface Alerta {
-    id_alerta?: number;
-    data_alerta: Date;
+    id_alerta: number;
+    nome: string;
+    conteudo: string;
+    // Relacionamentos com chaves estrangeiras
 
-    tipo_alerta: number;
+    id_parametro: number;  // Referência ao parâmetro
+     
 }
