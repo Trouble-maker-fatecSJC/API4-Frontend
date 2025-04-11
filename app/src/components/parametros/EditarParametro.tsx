@@ -42,12 +42,7 @@ export default function EditarParametro() {
         const data = await fetchWithAuth(`http://localhost:3000/api/parametro/${id}`);
   
         // Atualiza os estados com os dados do parâmetro
-        setVelocidadeVento(data.velocidade_vento || 0);
-        setDirecaoVento(data.direcao_vento || 0);
-        setTemperatura(data.temperatura || 0);
-        setUmidade(data.umidade || 0);
-        setChuva(data.chuva || 0);
-        setCpfUsuario(data.cpf_usuario || "");
+       
         setTipoParametro(data.id_tipo_parametro || "");
         setIdEstacao(data.id_estacao?.toString() || "");
         setIdMedida(data.id_medida?.toString() || "");
@@ -146,7 +141,7 @@ export default function EditarParametro() {
               {estacoes.length > 0 ? (
                 estacoes.map((estacao) => (
                   <option key={estacao.id_estacao} value={estacao.id_estacao}>
-                    {estacao.id_estacao}
+                    {estacao.nome}
                   </option>
                 ))
               ) : (
