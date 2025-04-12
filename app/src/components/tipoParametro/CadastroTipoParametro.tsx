@@ -103,7 +103,7 @@ export default function CadastroTipoParametro() {
         {/* Campo offset */}
         <div className="mb-4">
                 <label className="block text-gray-700 font-bold mb-2" htmlFor="offset">
-                    offset
+                    Offset
                 </label>
                 <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -117,7 +117,7 @@ export default function CadastroTipoParametro() {
             {/* Campo Qtd Casa Decimais */}
             <div className="mb-4">
                 <label className="block text-gray-700 font-bold mb-2" htmlFor="qtd">
-                    Qauntidade de casas decimais
+                    Quantidade de casas decimais
                 </label>
                 <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

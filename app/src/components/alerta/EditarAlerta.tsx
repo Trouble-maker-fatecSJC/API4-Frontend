@@ -1,76 +1,94 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Alerta from "../../model/Alerta";
-import TipoAlerta from "../../model/TipoAlerta";
+import Parametro from "../../model/Parametro";
 import { fetchWithAuth } from "../../services/api";
+import Aside from "../shared/aside/Aside";
 
 export default function EditarAlerta() {
-  const [alerta, setAlerta] = useState<Alerta | null>(null);
-  const [dataAlerta, setDataAlerta] = useState<string>("");
-  const [idTipoAlerta, setIdTipoAlerta] = useState<number | string>("");
-  const [tiposAlerta, setTiposAlerta] = useState<TipoAlerta[]>([]);
+  const [nome, setNome] = useState<string>("");
+  const [conteudo, setConteudo] = useState<string>("");
+  const [idParametro, setIdParametro] = useState<number | string>("");
+  const [parametros, setParametros] = useState<Parametro[]>([]);
 
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchTiposAlerta = async () => {
+    const fetchParametros = async () => {
       try {
-        const data = await fetchWithAuth("http://localhost:3000/api/tipoalerta");
-        setTiposAlerta(data);
+        const data = await fetchWithAuth("http://localhost:3000/api/parametro");
+        setParametros(data);
       } catch (error) {
-        console.error("Erro ao buscar tipos de alerta:", error);
+        console.error("Erro ao buscar parâmetros:", error);
       }
     };
 
-    const fetchAlerta = async () => {
+    fetchParametros();
+  }, []);
+
+  useEffect(() => {
+    const fetchTipoAlerta = async () => {
       if (!id) return;
 
       try {
-        const data: Alerta = await fetchWithAuth(`http://localhost:3000/api/alerta/${id}`);
-        setAlerta(data);
-        setDataAlerta(new Date(data.data_alerta).toISOString().slice(0, 16)); // Formato compatível com datetime-local
-        setIdTipoAlerta(data.tipo_alerta);
+        const data = await fetchWithAuth(`http://localhost:3000/api/alerta/${id}`);
+        setNome(data.nome || "");
+        setConteudo(data.conteudo || "");
+        setIdParametro(data.parametro?.id_parametro || "");
       } catch (error) {
-        console.error("Erro ao buscar o alerta:", error);
+        console.error("Erro ao buscar o tipo de alerta:", error);
       }
     };
 
-    fetchTiposAlerta();
-    fetchAlerta();
+    fetchTipoAlerta();
   }, [id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const idTipoAlertaNumber = Number(idTipoAlerta);
-    if (isNaN(idTipoAlertaNumber) || idTipoAlertaNumber <= 0) {
-      alert("Por favor, selecione um tipo de alerta válido.");
+    const idParametroNumber = Number(idParametro);
+    if (isNaN(idParametroNumber) || idParametroNumber <= 0) {
+      alert("Por favor, selecione um parâmetro válido.");
+      console.error("Erro: idParametro não é um número válido.");
+      return;
+    }
+
+    const idAlerta = Number(id);
+    if (isNaN(idAlerta) || idAlerta <= 0) {
+      alert("Erro interno: ID do tipo de alerta inválido.");
+      console.error("Erro: idAlerta não é um número válido.");
       return;
     }
 
     const novoAlerta = {
-      id_alerta: alerta?.id_alerta,
-      data_alerta: new Date(dataAlerta).toISOString(),
-      tipoAlerta: { id_tipo_alerta: idTipoAlertaNumber }, // Ajuste aqui
+      id_alerta: idAlerta,
+      nome,
+      conteudo,
+      parametro: { id: idParametroNumber },
     };
 
+    console.log("Enviando dados para o backend:", novoAlerta);
+
     try {
-      const response = await fetchWithAuth(`http://localhost:3000/api/alerta/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(novoAlerta),
-        headers: { "Content-Type": "application/json" }, // Adicionar cabeçalho JSON
-      });
+      const response = await fetchWithAuth(
+        `http://localhost:3000/api/alerta/${idAlerta}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(novoAlerta),
+        }
+      );
 
       if (response.ok) {
         console.log("Erro ao atualizar alerta");
       } else {
         alert("Alerta atualizado com sucesso!");
         navigate("/alertas");
+       
+        
+        
       }
     } catch (error) {
-      console.error("Erro ao conectar com o servidor:", error);
-      alert("Erro ao conectar com o servidor");
+      console.log("Erro ao conectar com o servidor:", error);
     }
   };
 
@@ -78,59 +96,64 @@ export default function EditarAlerta() {
     navigate("/alertas");
   };
 
-  if (!alerta) {
-    return <p>Carregando...</p>;
-  }
-
   return (
+    <>
+    <Aside />
     <div className="max-w-md mx-auto mt-10 p-4 bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
         Edição de Alerta
       </div>
       <form className="py-4 px-6" onSubmit={handleSubmit}>
-        {/* Campo ID do Alerta (somente leitura) */}
+        {/* Campo Nome */}
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="idAlerta">
-            ID do Alerta
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="nome">
+            Nome
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="idAlerta"
+            id="nome"
             type="text"
-            value={alerta.id_alerta}
-            readOnly
+            placeholder="Digite o nome do tipo de alerta"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
           />
         </div>
 
-        {/* Campo Data do Alerta */}
+        {/* Campo Conteúdo */}
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="dataAlerta">
-            Data do Alerta
+          <label
+            className="block text-gray-700 font-bold mb-2"
+            htmlFor="conteudo"
+          >
+            Conteúdo
           </label>
-          <input
+          <textarea
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="dataAlerta"
-            type="datetime-local"
-            value={dataAlerta}
-            onChange={(e) => setDataAlerta(e.target.value)}
+            id="conteudo"
+            placeholder="Digite o conteúdo do tipo de alerta"
+            value={conteudo}
+            onChange={(e) => setConteudo(e.target.value)}
           />
         </div>
 
-        {/* Campo Tipo de Alerta */}
+        {/* Campo ID do Parâmetro */}
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="idTipoAlerta">
-            Tipo de Alerta
+          <label
+            className="block text-gray-700 font-bold mb-2"
+            htmlFor="idParametro"
+          >
+            Parâmetro
           </label>
           <select
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="idTipoAlerta"
-            value={idTipoAlerta}
-            onChange={(e) => setIdTipoAlerta(e.target.value)}
+            id="idParametro"
+            value={idParametro}
+            onChange={(e) => setIdParametro(e.target.value)}
           >
-            <option value="">Selecione o Tipo de Alerta</option>
-            {tiposAlerta.map((tipo) => (
-              <option key={tipo.id_tipo_alerta} value={tipo.id_tipo_alerta}>
-                {tipo.nome}
+            <option value="">Selecione o Parâmetro</option>
+            {parametros.map((parametro) => (
+              <option key={parametro.id_parametro} value={parametro.id_parametro}>
+                {parametro.tipoParametro.nome}
               </option>
             ))}
           </select>
@@ -150,6 +173,7 @@ export default function EditarAlerta() {
         </div>
       </form>
     </div>
+    </>
   );
 }
 

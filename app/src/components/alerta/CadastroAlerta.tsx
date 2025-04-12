@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Aside from "../shared/aside/Aside";
-import TipoAlerta from "../../model/TipoAlerta";
+import Alerta from "../../model/Alerta";
 import Parametro from "../../model/Parametro";
 import { fetchWithAuth } from "../../services/api";
 
-export default function CadastroTipoAlerta() {
+export default function CadastroAlerta() {
   const [nome, setNome] = useState<string>("");
   const [conteudo, setConteudo] = useState<string>("");
   const [parametros, setParametros] = useState<Parametro[]>([]);
@@ -27,27 +27,28 @@ export default function CadastroTipoAlerta() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const novoTipoAlerta: TipoAlerta = {
+    const novoAlerta: Alerta = {
       nome: nome,
       conteudo: conteudo,
       id_do_parametro: Number(Parametro),
     };
 
-    console.log("Enviando dados:", novoTipoAlerta);
+    console.log("Enviando dados:", novoAlerta);
 
     try {
-      const response = await fetchWithAuth("http://localhost:3000/api/tipoalerta", {
+      const response = await fetchWithAuth("http://localhost:3000/api/alerta", {
         method: "POST",
-        body: JSON.stringify(novoTipoAlerta),
+        body: JSON.stringify(novoAlerta),
       });
 
       if (response.ok) {
-        alert("Tipo de alerta cadastrado com sucesso!");
+        console.log("Erro ao cadastrar alerta");
+      } else {
+        alert("Alerta cadastrado com sucesso!");
         setNome("");
         setConteudo("");
         setParametro(0);
-      } else {
-        alert("Erro ao cadastrar Tipo de alerta");
+        
       }
     } catch (error) {
       alert("Erro ao conectar com o servidor");
@@ -60,7 +61,7 @@ export default function CadastroTipoAlerta() {
       <Aside />
       <div className="max-w-md mx-auto mt-10 p-4 bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
-          Cadastro de Tipo Alerta
+          Cadastro Alerta
         </div>
         <form className="py-4 px-6" onSubmit={handleSubmit}>
           {/* Campo Nome */}
@@ -105,7 +106,7 @@ export default function CadastroTipoAlerta() {
               className="block text-gray-700 font-bold mb-2"
               htmlFor="idParametro"
             >
-              Id do Parâmetro
+              Parâmetro
             </label>
             <select
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -113,11 +114,11 @@ export default function CadastroTipoAlerta() {
               value={Parametro}
               onChange={(e) => setParametro(e.target.value)}
             >
-              <option value="">Selecione o id do Parâmetro</option>
+              <option value="">Selecione o Parâmetro</option>
               {parametros.length > 0 ? (
                 parametros.map((parametro) => (
                   <option key={parametro.id_parametro} value={parametro.id_parametro}>
-                    {parametro.id_parametro}
+                    {parametro.tipoParametro.nome}
                   </option>
                 ))
               ) : (
@@ -128,7 +129,7 @@ export default function CadastroTipoAlerta() {
 
           <div className="flex items-center justify-center mt-6">
             <button className="btn-cadastrar" type="submit">
-              Cadastrar Tipo de alerta
+              Cadastrar alerta
             </button>
           </div>
         </form>

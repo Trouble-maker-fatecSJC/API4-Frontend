@@ -97,6 +97,10 @@ export default function DetalheEstacao({
           <p>{estacao.longitude}</p>
         </div>
         <div className="mb-4">
+        <h2 className="text-gray-700 font-bold mb-2">Uid</h2>
+          <p>{estacao.uid}</p>
+        </div>
+        <div className="mb-4">
           <h2 className="text-gray-700 font-bold mb-2">Data de Instalação:</h2>
           <p>{new Date(estacao.data_instalacao).toLocaleDateString()}</p>
         </div>

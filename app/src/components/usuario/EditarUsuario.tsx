@@ -11,6 +11,7 @@ export default function EditarUsuario() {
   const [cpfNovo, setCpfNovo] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [nome, setNome] = useState<string>("");
+  const [telefone, setTelefone] = useState<string>("");
   const [tipo, setTipo] = useState<number>(0);
 
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function EditarUsuario() {
         setCpfNovo(data.cpf); // Deixar o cpfNovo com o valor inicial do cpf
         setEmail(data.email);
         setNome(data.nome);
+        setTelefone(data.telefone);
         setTipo(data.tipo);
       } catch (error) {
         alert("Erro ao buscar usuário");
@@ -37,7 +39,7 @@ export default function EditarUsuario() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const usuarioAtualizado = { cpf: cpfNovo, email, nome, tipo };
+    const usuarioAtualizado = { cpf: cpfNovo, email, nome, telefone, tipo };
 
     console.log("Enviando dados para atualização:", usuarioAtualizado);
 
@@ -91,6 +93,15 @@ export default function EditarUsuario() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-1 sm:mb-2">Telefone</label>
+            <input
+              className="w-full p-2 border rounded bg-gray-100"
+              type="text"
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
             />
           </div>
           <div className="mb-4">

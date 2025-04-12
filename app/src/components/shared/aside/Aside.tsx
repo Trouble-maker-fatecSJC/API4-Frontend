@@ -8,7 +8,7 @@ export default function Aside() {
   const [dropDownTp, setDropDownTp] = useState(false);
   const [dropDownP, setDropDownP] = useState(false);
   const [dropDownAlerta, setDropDownAlerta] = useState(false); // Novo estado para Alerta
-  const [dropDownTipoAlerta, setDropDownTipoAlerta] = useState(false); // Novo estado para Tipo de Alerta
+  const [dropDownAlarme, setdropDownAlarme] = useState(false); // Novo estado para Tipo de Alerta
 
   // Função para alternar o menu (abrir/fechar)
   const toggleMenu = () => setIsSideOpen(!isSideOpen);
@@ -23,7 +23,7 @@ export default function Aside() {
   const toggleDropdownTp = () => setDropDownTp(!dropDownTp);
   const toggleDropdownP = () => setDropDownP(!dropDownP);
   const toggleDropdownAlerta = () => setDropDownAlerta(!dropDownAlerta); // Função para Alerta
-  const toggleDropdownTipoAlerta = () => setDropDownTipoAlerta(!dropDownTipoAlerta); // Função para Tipo de Alerta
+  const toggledropDownAlarme = () => setdropDownAlarme(!dropDownAlarme); // Função para Tipo de Alerta
 
   return (
     <>
@@ -246,13 +246,6 @@ export default function Aside() {
               </button>
               <ul className={`${dropDownP ? "block" : "hidden"} py-2 space-y-2`}>
                 <li>
-                  <a href="/cadastroparametro" onClick={closeMenu}
-                    className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
-                  >
-                    Cadastrar
-                  </a>
-                </li>
-                <li>
                   <a href="/parametros" onClick={closeMenu}
                     className="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group text-white hover:bg-gray-700"
                   >
@@ -356,17 +349,17 @@ export default function Aside() {
               </ul>
             </li>
 
-            {/* Submenu Tipo de Alerta */}
+            {/* Submenu Alarme */}
             <li>
               <button
-                onClick={toggleDropdownTipoAlerta}
+                onClick={toggledropDownAlarme}
                 type="button"
                 className="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group text-white hover:bg-gray-700"
-                aria-controls="dropdown-tipoalerta"
-                data-collapse-toggle="dropdown-tipoalerta"
+                aria-controls="dropdown-alarme"
+                data-collapse-toggle="dropdown-alarme"
               >
                 <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
-                  Tipo de Alerta
+                  Alarme
                 </span>
                 <svg
                   className="w-3 h-3"
@@ -385,21 +378,12 @@ export default function Aside() {
                 </svg>
               </button>
               <ul
-                id="dropdown-tipoalerta"
-                className={`${dropDownTipoAlerta ? "block" : "hidden"} py-2 space-y-2`}
+                id="dropdown-alarme"
+                className={`${dropDownAlarme ? "block" : "hidden"} py-2 space-y-2`}
               >
                 <li>
                   <a
-                    href="/cadastrotipoalerta"
-                    onClick={closeMenu}
-                    className="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group text-white hover:bg-gray-700"
-                  >
-                    Cadastrar
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/tipoalertas"
+                    href="/alarmes"
                     onClick={closeMenu}
                     className="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group text-white hover:bg-gray-700"
                   >

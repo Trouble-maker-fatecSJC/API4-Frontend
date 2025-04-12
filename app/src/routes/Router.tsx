@@ -18,13 +18,14 @@ import TipoParametros from "../components/tipoParametro/TipoParametros";
 // import CadastroParametro from "../components/parametros/Cadastroparametro";
 import EditarEstacao from "../components/estacao/EditarEstacao";
 import Parametros from "../components/parametros/Parametro";
-import EditarParametro from "../components/parametros/EditarParametro";
-import CadastroTipoAlerta from "../components/tipoAlerta/CadastroTipoAlerta";
-import TipoAlertas from "../components/tipoAlerta/TipoAlertas";
-import EditarTipoAlerta from "../components/tipoAlerta/EditarTipoAlerta";
-import CadastrarAlerta from "../components/alerta/CadastrarAlerta";
+// import EditarParametro from "../components/parametros/EditarParametro";
+import CadastroAlerta from "../components/alerta/CadastroAlerta";
 import Alertas from "../components/alerta/Alertas";
 import EditarAlerta from "../components/alerta/EditarAlerta";
+
+import AlarmeList from "../components/alarme/Alarme";
+
+
 import { ComponentType } from "react";
 import PaginaPrincipal from "../pages/paginaPrincipal/paginaprincipal"; // Import the PaginaPrincipal component
 import PaginaTeste from "../components/usuario/paginaTeste";
@@ -106,31 +107,24 @@ export default function AppRoutes() {
         element={<ProtectedRoute component={Parametros} />}
       />
       <Route
-        path="/editarparametro/:id"
-        element={<ProtectedRoute component={EditarParametro} />}
-      />
-      <Route
-        path="/cadastrotipoalerta"
-        element={<ProtectedRoute component={CadastroTipoAlerta} />}
-      />
-      <Route
-        path="/tipoalertas"
-        element={<ProtectedRoute component={TipoAlertas} />}
-      />
-      <Route
-        path="/editartipoalerta/:id"
-        element={<ProtectedRoute component={EditarTipoAlerta} />}
-      />
-      <Route
         path="/cadastroalerta"
-        element={<ProtectedRoute component={CadastrarAlerta} />}
+        element={<ProtectedRoute component={CadastroAlerta} />}
       />
-      <Route path="/alertas" element={<ProtectedRoute component={Alertas} />} />
       <Route
-        path="/editaralerta/:id"
+        path="/alertas"
+        element={<ProtectedRoute component={Alertas} />}
+      />
+      <Route
+        path="/editarAlerta/:id"
         element={<ProtectedRoute component={EditarAlerta} />}
       />
+      <Route
+        path="/alarmes"
+        element={<ProtectedRoute component={AlarmeList} />} 
+      />
 
+
+      
       <Route path="*" element={<PaginaNaoEncontrada />} />
     </Routes>
   );

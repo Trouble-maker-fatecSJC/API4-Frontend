@@ -56,6 +56,7 @@ export default function TipoParametros() {
                 <th className="py-2 px-4 border">Json Param</th>
                 <th className="py-2 px-4 border">Nome</th>
                 <th className="py-2 px-4 border">Unidade</th>
+                <th className="py-2 px-4 border">Offset</th>
                 <th className="py-2 px-4 border">Quantidade de casas decimais</th>
                 <th className="py-2 px-4 border">Fator</th>
                 <th className="py-2 px-4 border">Ações</th>
@@ -67,6 +68,7 @@ export default function TipoParametros() {
                   <td className="py-2 px-4 border">{TipoParametros.json_param}</td>
                   <td className="py-2 px-4 border">{TipoParametros.nome}</td>
                   <td className="py-2 px-4 border">{TipoParametros.unidade}</td>
+                  <td className="py-2 px-4 border">{TipoParametros.offset}</td>
                   <td className="py-2 px-4 border">{TipoParametros.qtd_casadesc}</td>
                   <td className="py-2 px-4 border">{TipoParametros.fator}</td>
                   <td className="py-2 px-4 border flex space-x-2">

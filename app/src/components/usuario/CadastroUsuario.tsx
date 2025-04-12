@@ -3,13 +3,12 @@ import { fetchWithAuth } from "../../services/api";
 // Importa o contexto de autenticação
 import Aside from "../shared/aside/Aside";
 
-
 export default function CadastroUsuario() {
-
   const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
   const [senha, setSenha] = useState("");
+  const [telefone, setTelefone] = useState("");
   const [tipo, setTipo] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,16 +19,20 @@ export default function CadastroUsuario() {
       email: email,
       nome: nome,
       senha: senha,
+      telefone: telefone,
       tipo: tipo,
     };
 
     console.log("Dados enviados:", usuario);
 
     try {
-      const response = await fetchWithAuth("http://localhost:3000/api/usuarios", {
-        method: "POST",
-        body: JSON.stringify(usuario),
-      });
+      const response = await fetchWithAuth(
+        "http://localhost:3000/api/usuarios",
+        {
+          method: "POST",
+          body: JSON.stringify(usuario),
+        }
+      );
 
       if (response.ok) {
         alert("Erro ao cadastrar o usuário.");
@@ -39,6 +42,7 @@ export default function CadastroUsuario() {
         setEmail("");
         setNome("");
         setSenha("");
+        setTelefone("");
         setTipo(0);
       }
     } catch (error) {
@@ -46,7 +50,6 @@ export default function CadastroUsuario() {
       console.error(error);
     }
   };
-
 
   return (
     <>
@@ -58,7 +61,10 @@ export default function CadastroUsuario() {
         <form className="py-4 px-6" onSubmit={handleSubmit}>
           {/* Campo Nome */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="nome">
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="nome"
+            >
               Nome
             </label>
             <input
@@ -88,7 +94,10 @@ export default function CadastroUsuario() {
 
           {/* Campo Email */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
@@ -103,7 +112,10 @@ export default function CadastroUsuario() {
 
           {/* Campo Senha */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="senha">
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="senha"
+            >
               Senha
             </label>
             <input
@@ -116,9 +128,30 @@ export default function CadastroUsuario() {
             />
           </div>
 
+          {/* Campo Telefone */}
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="telefone"
+            >
+              Telefone
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="telefone"
+              type="text"
+              placeholder="Email"
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+            />
+          </div>
+
           {/* Campo Tipo */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="tipo">
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="tipo"
+            >
               Tipo
             </label>
             <select
@@ -143,9 +176,3 @@ export default function CadastroUsuario() {
     </>
   );
 }
-
-
-
-
-
-
