@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../context/AuthContext";
 import Home from "../pages/home";
 import Login from "../pages/login";
 import PaginaNaoEncontrada from "../pages/paginaNaoEncontrada";
@@ -35,6 +35,7 @@ import PaginaTeste from "../components/usuario/paginaTeste";
 const ProtectedRoute = ({
   component: Component,
 }: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: ComponentType<any>;
 }) => {
   const { isAuthenticated } = useAuth();

@@ -41,20 +41,15 @@
 //       try {
 //         const data = await fetchWithAuth(`http://localhost:3000/api/parametro/${id}`);
   
-//         // Atualiza os estados com os dados do parâmetro
-//         setVelocidadeVento(data.velocidade_vento || 0);
-//         setDirecaoVento(data.direcao_vento || 0);
-//         setTemperatura(data.temperatura || 0);
-//         setUmidade(data.umidade || 0);
-//         setChuva(data.chuva || 0);
-//         setCpfUsuario(data.cpf_usuario || "");
-//         setTipoParametro(data.id_tipo_parametro || "");
-//         setIdEstacao(data.id_estacao?.toString() || "");
-//         setIdMedida(data.id_medida?.toString() || "");
-//       } catch (error) {
-//         console.error("Erro ao buscar o parâmetro:", error);
-//       }
-//     };
+        // Atualiza os estados com os dados do parâmetro
+       
+        setTipoParametro(data.id_tipo_parametro || "");
+        setIdEstacao(data.id_estacao?.toString() || "");
+        setIdMedida(data.id_medida?.toString() || "");
+      } catch (error) {
+        console.error("Erro ao buscar o parâmetro:", error);
+      }
+    };
   
 //     fetchParametro();
 //   }, [id]);
@@ -125,35 +120,35 @@
 //             />
 //           </div>
 
-//           {/* Campo Estação */}
-//           <div className="mb-4">
-//             <label
-//               className="block text-gray-700 font-bold mb-2"
-//               htmlFor="idEstacao"
-//             >
-//               Estação
-//             </label>
-//             <select
-//               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-//               id="idEstacao"
-//               value={idEstacao}
-//               onChange={(e) => {
-//                 console.log("Estação selecionada:", e.target.value); // Aqui você verá o valor selecionado
-//                 setIdEstacao(e.target.value);
-//               }}
-//             >
-//               <option value="">Selecione a Estação</option>
-//               {estacoes.length > 0 ? (
-//                 estacoes.map((estacao) => (
-//                   <option key={estacao.id_estacao} value={estacao.id_estacao}>
-//                     {estacao.id_estacao}
-//                   </option>
-//                 ))
-//               ) : (
-//                 <option value="">Nenhuma estação cadastrada</option>
-//               )}
-//             </select>
-//           </div>
+          {/* Campo Estação */}
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="idEstacao"
+            >
+              Estação
+            </label>
+            <select
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="idEstacao"
+              value={idEstacao}
+              onChange={(e) => {
+                console.log("Estação selecionada:", e.target.value); // Aqui você verá o valor selecionado
+                setIdEstacao(e.target.value);
+              }}
+            >
+              <option value="">Selecione a Estação</option>
+              {estacoes.length > 0 ? (
+                estacoes.map((estacao) => (
+                  <option key={estacao.id_estacao} value={estacao.id_estacao}>
+                    {estacao.nome}
+                  </option>
+                ))
+              ) : (
+                <option value="">Nenhuma estação cadastrada</option>
+              )}
+            </select>
+          </div>
 
 
 //           {/* Campo Tipo de Parâmetro */}
